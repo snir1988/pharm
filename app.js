@@ -1,5 +1,6 @@
 const express = require("express"); // ייבוא ספריית express, משמשת לבניית אפליקציות ווב
 const morgan = require("morgan"); // ייבוא ספריית morgan, לצורך לוגים של בקשות HTTP
+const path = require("path"); // ייבוא ספריית path לניהול נתיבים
 const app = express(); // יצירת אובייקט express עבור האפליקציה
 const bcrypt = require("bcryptjs"); // במקום bcrypt, השתמש ב-bcryptjs
 const mongoose = require("mongoose"); // ייבוא ספריית mongoose, לצורך חיבור למונגו דטהבייס
@@ -25,6 +26,16 @@ mongoose
 
 app.use(morgan("dev")); // שימוש ב-morgan כדי לעקוב אחרי בקשות HTTP (לוגים בפורמט פיתוח)
 app.use(express.urlencoded({ extended: true })); // מאפשר לאפליקציה לקבל בקשות מסוג URL-encoded (כולל נתונים בטפסים)
+
+// ** הוספת שורות הקוד כאן **
+
+// הגדרת מנוע התצוגה כ-ejs
+app.set("view engine", "ejs");
+
+// אם אתה שומר את קבצי ה-view בתיקיית 'views', ניתן להוסיף את השורה הבאה (לא תמיד דרוש):
+app.set("views", path.join(__dirname, "views"));
+
+// ** המשך הגדרת הנתיבים **
 
 // הגדרת הנתיבים, כל נתיב מקשר לפונקציות שנמצאות בקבצי ה-controller
 app.use("/product", productRouter); // כל בקשה לנתיב '/product' תועבר ל-router של המוצרים
