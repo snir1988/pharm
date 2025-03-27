@@ -1,8 +1,8 @@
-const categoryModle = require("../modles/category");
+const categoryModle = require("../models/category");
 
 module.exports = {
   GetAll: (req, res) => {
-    console.log("not here",req.body);
+    console.log("not here", req.body);
     try {
       categoryModle.find().then((category) => {
         return res.status(200).json(category);

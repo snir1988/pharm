@@ -1,6 +1,6 @@
 const express = require("express"); // ייבוא express
 const authMiddleware = require("../middelewares/auth"); // ייבוא המידלוור לאימות משתמשים
-const Order = require("../modles/order"); // ייבוא מודל הזמנה מתוך מונגו
+const Order = require("../models/order"); // ייבוא מודל הזמנה מתוך מונגו
 
 const router = express.Router(); // יצירת ראוטר חדש
 

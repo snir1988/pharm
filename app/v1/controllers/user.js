@@ -1,3 +1,4 @@
+const userModle = require("../models/user");
 const User = require("../models/user"); // ייבוא המודל של המשתמשים
 const bcrypt = require("bcryptjs"); // ייבוא bcryptjs להצפנת סיסמאות
 const jwt = require("jsonwebtoken"); // ייבוא jsonwebtoken ליצירת טוקן
@@ -6,7 +7,7 @@ const mongoose = require("mongoose");
 // פונקציה לרישום משתמש חדש
 exports.register = async (req, res) => {
   try {
-    const { username, email, password } = req.body; // קבלת הנתונים מהבקשה
+    const { name, email, password } = req.body; // קבלת הנתונים מהבקשה
 
     // בדיקה אם המשתמש כבר קיים במערכת לפי האימייל
     const existingUser = await User.findOne({ email });
@@ -14,15 +15,15 @@ exports.register = async (req, res) => {
       return res.status(400).json({ msg: "User already exists" }); // החזרת שגיאה אם המשתמש קיים
     }
 
-    // יצירת salt להצפנת הסיסמה
-    const salt = await bcrypt.genSalt(10); // יצירת salt ברמת רמת הצפנה 10
-    const hashedPassword = await bcrypt.hash(password, salt); // הצפנת הסיסמה
+    // יצירת salt והצפנת הסיסמה
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // יצירת משתמש חדש עם שם משתמש, אימייל וסיסמה מוצפנת
+    // יצירת משתמש חדש עם שם, אימייל וסיסמה מוצפנת
     const newUser = new User({
-      username,
+      name,
       email,
-      password: hashedPassword, // הסיסמה המוצפנת
+      password: hashedPassword,
     });
 
     // שמירת המשתמש במסד הנתונים
@@ -30,8 +31,8 @@ exports.register = async (req, res) => {
 
     res.status(201).json({ msg: "User registered successfully" }); // החזרת הודעה על הצלחת הרישום
   } catch (err) {
-    console.error("Error during registration:", err); // הדפסת שגיאה במקרה של כשלון
-    res.status(500).json({ msg: "Server error", error: err.message }); // טיפול בשגיאות במקרה של בעיה בשמירה או בהצפנה
+    console.error("Error during registration:", err);
+    res.status(500).json({ msg: "Server error", error: err.message }); // טיפול בשגיאות במקרה של בעיה בשמירה
   }
 };
 
@@ -59,7 +60,7 @@ exports.login = async (req, res) => {
 
     res.status(200).json({ token }); // החזרת הטוקן כתגובה
   } catch (err) {
-    console.error("Error during login:", err); // הדפסת שגיאה במקרה של כשלון
+    console.error("Error during login:", err);
     res.status(500).json({ msg: "Server error", error: err.message }); // טיפול בשגיאות במקרה של בעיה בהתחברות
   }
 };
