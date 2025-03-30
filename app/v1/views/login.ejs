@@ -1,0 +1,16 @@
+
+
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="/styles/styles.css">
+
+
+<%- include('partials/header') %> <!-- אם אתה רוצה להשתמש בכותרת -->
+<h1>Login</h1>
+<form action="/login" method="POST">
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <button type="submit">Login</button>
+</form>
+<%- include('partials/footer') %> <!-- אם אתה רוצה להשתמש בכותרת תחתונה -->
+

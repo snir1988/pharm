@@ -1,7 +1,14 @@
 require ('dotenv').config();
 const http = require('http');
-const port = process.env.PORT || 3030;
 const app = require('./app');
+const open = require('open'); // ייבוא מודול 'open'
 
-const srv = http.createServer(app);
-srv.listen(port,()=>{console.log("server working")});
+
+const Server=http.createServer(app);
+const PORT = process.env.PORT || 3030;
+
+Server.listen(PORT, () => {
+    console.log(`Server started on ${PORT}`);
+    // פותח את דף ההתחברות בדפדפן באופן אוטומטי
+    open(`http://localhost:${PORT}/login`);
+});

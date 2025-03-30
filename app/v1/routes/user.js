@@ -1,10 +1,12 @@
 const express = require("express"); // ייבוא Express ליצירת ראוטר
-const { register, login } = require("../controllers/user"); // ייבוא הפונקציות מבקר המשתמשים
+const { loginPage, login } = require("../controllers/user"); // ייבוא הפונקציות מבקר המשתמשים
 
 const router = express.Router(); // יצירת ראוטר חדש
 
-router.post("/register", register); // יצירת נתיב POST לרישום משתמשים
-router.post("/login", login); // יצירת נתיב POST להתחברות משתמשים
+// ✅ נתיב להצגת עמוד ההתחברות - GET
+router.get("/login", loginPage); // יטען את login.ejs מתוך views (app/v1/views)
 
-module.exports = router; // ייצוא הראוטר לשימוש ב-app.js
+// ✅ נתיב להתחברות לאחר שליחת טופס - POST
+router.post("/login", login); // פונקציה שמטפלת בנתוני ההתחברות
 
+module.exports = router; // ייצוא ה-router לשימוש בקובץ app.js
