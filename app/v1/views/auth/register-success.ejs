@@ -1,0 +1,18 @@
+<%- include('../partials/header') %> <!-- הכללת Header -->
+<link rel="stylesheet" href="/styles/global.css"> <!-- קישור לקובץ עיצוב כללי -->
+
+<section class="register-success"> <!-- עטיפת העמוד -->
+  <div class="success-box"> <!-- קופסת ההודעה -->
+    <h2><%= msg %></h2> <!-- הודעת ההצלחה -->
+    <p>מועבר לעמוד המוצרים...</p> <!-- טקסט עזר -->
+  </div>
+</section>
+
+<!-- סקריפט להפניה אוטומטית אחרי 3 שניות -->
+<script>
+  setTimeout(() => {
+    window.location.href = "/product"; // הפניה לעמוד המוצרים
+  }, 3000); // לאחר 3000 אלפיות השנייה (3 שניות)
+</script>
+
+<%- include('../partials/footer') %> <!-- הכללת Footer -->

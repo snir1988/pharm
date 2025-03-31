@@ -1,42 +1,43 @@
 const express = require("express"); // ייבוא express
+const mongoose = require("mongoose"); // ✅ הוספה: נדרש בשביל יצירת ObjectId
 const authMiddleware = require("../middelewares/auth"); // ייבוא המידלוור לאימות משתמשים
-const Order = require("../models/order"); // ייבוא מודל הזמנה מתוך מונגו
+const Order = require("../models/order"); // ייבוא מודל ההזמנה
 
-const router = express.Router(); // יצירת ראוטר חדש
+const router = express.Router(); // יצירת router חדש
 
-// נתיב לביצוע הזמנה (רק למשתמשים מחוברים)
-router.post("/order", authMiddleware, async (req, res) => {
+// ✅ POST /order → יצירת הזמנה חדשה (דורש התחברות)
+router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { products, totalPrice } = req.body; // קבלת נתוני ההזמנה מה-body של הבקשה
+    const { products, totalPrice } = req.body; // נתוני ההזמנה מהבקשה
 
-    // יצירת הזמנה חדשה
+    // יצירת מסמך הזמנה חדש
     const order = new Order({
-      _id: new mongoose.Types.ObjectId(), // יצירת מזהה ייחודי להזמנה
-      userId: req.user._id, // המשתמש המחובר שהזמין
-      products, // המוצרים בהזמנה
-      totalPrice, // מחיר ההזמנה
+      _id: new mongoose.Types.ObjectId(), // מזהה ייחודי להזמנה
+      userId: req.user._id, // מזהה המשתמש מתוך ה-token
+      products, // רשימת מוצרים
+      totalPrice, // סה"כ מחיר
     });
 
-    await order.save(); // שמירת ההזמנה במסד הנתונים
+    await order.save(); // שמירה למסד הנתונים
 
-    res.status(201).json({ message: "Order placed successfully", order }); // החזרת תשובה על הצלחה
+    res.status(201).json({ message: "Order placed successfully", order }); // תשובת הצלחה
   } catch (err) {
-    res.status(500).json({ message: "Error placing order", error: err }); // החזרת שגיאה אם קרתה בעיה
+    res.status(500).json({ message: "Error placing order", error: err });
   }
 });
 
-// נתיב לקבלת הזמנות של משתמש מסוים
-router.get("/orders", authMiddleware, async (req, res) => {
+// ✅ GET /orders → קבלת ההזמנות של המשתמש המחובר
+router.get("/my-orders", authMiddleware, async (req, res) => {
   try {
-    // שליפה של כל ההזמנות של המשתמש המחובר
+    // שליפת הזמנות לפי מזהה המשתמש
     const orders = await Order.find({ userId: req.user._id }).populate(
-      "products.productId"
-    ); // populating המוצר בתוך ההזמנה
+      "products.productId" // אם productId הוא ref למוצר
+    );
 
-    res.json(orders); // החזרת ההזמנות למשתמש
+    res.json(orders); // החזרת ההזמנות כ-JSON
   } catch (err) {
-    res.status(500).json({ message: "Error fetching orders", error: err }); // החזרת שגיאה אם קרתה בעיה
+    res.status(500).json({ message: "Error fetching orders", error: err });
   }
 });
 
-module.exports = router; // ייצוא הראוטר לשימוש ב-app.js
+module.exports = router; // ייצוא ה-router ל-app.js

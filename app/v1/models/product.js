@@ -1,15 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // ייבוא mongoose
 
-const productSchema = mongoose.Schema({
-    _id:mongoose.Schema.Types.ObjectId,
-    pname:String,
-    price:Number,
-    pdesc: String,
-    picname: String,
-    pid:Number,
-    cid: Number
+const productSchema = new mongoose.Schema({
+  pname: {
+    type: String,
+    required: true, // חובה שם מוצר
+    trim: true,
+  },
+  price: {
+    type: Number,
+    required: true, // חובה מחיר
+    min: 0,
+  },
+  pdesc: {
+    type: String,
+    trim: true, // תיאור מוצר
+  },
+  picname: {
+    type: String, // שם קובץ תמונה (אפשר גם URL)
+    trim: true,
+  },
+  pid: {
+    type: Number,
+    required: true, // מזהה פנימי שאתה משתמש בו
+    unique: true,
+  },
+  cid: {
+    type: Number, // בהמשך אולי תשקול להפוך את זה ל־ObjectId לקשר ישיר לקטגוריה
+    required: true,
+  },
+}, {
+  timestamps: true, // מוסיף createdAt ו־updatedAt
 });
 
-const model = mongoose.model('products',productSchema);
+// יצירת המודל מהמגדיר
+const Product = mongoose.model('Product', productSchema);
 
-module.exports = model;
+// ייצוא
+module.exports = Product;

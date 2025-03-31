@@ -1,9 +1,51 @@
-<nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/login">Login</a></li>
-      <li><a href="/register">Register</a></li>
-      <li><a href="/orders">Orders</a></li>
-    </ul>
-  </nav>
-  
+<nav class="main-navbar">
+  <ul class="nav-links">
+
+    <!-- קישור לדף הבית -->
+    <li>
+      <a href="/">
+        <i class="fas fa-home"></i> דף הבית
+      </a>
+    </li>
+
+    <!-- קישור לעמוד המוצרים -->
+    <li>
+      <a href="/product">
+        <i class="fas fa-pills"></i> מוצרים
+      </a>
+    </li>
+
+    <!-- עגלת קניות עם אייקון ומספר פריטים -->
+    <li>
+      <a href="/cart">
+        <i class="fas fa-shopping-cart"></i> עגלה
+        <% if (session.cart && session.cart.length > 0) { %>
+          (<%= session.cart.length %>) <!-- מציג את מספר סוגי המוצרים בעגלה -->
+        <% } %>
+      </a>
+    </li>
+
+    <!-- אם המשתמש לא מחובר -->
+    <% if (!user) { %>
+      <li>
+        <a href="/login">
+          <i class="fas fa-sign-in-alt"></i> התחברות
+        </a>
+      </li>
+      <li>
+        <a href="/register">
+          <i class="fas fa-user-plus"></i> הרשמה
+        </a>
+      </li>
+
+    <!-- אם המשתמש מחובר -->
+    <% } else { %>
+      <li>
+        <a href="/orders/my-orders">
+          <i class="fas fa-box"></i> ההזמנות שלי
+        </a>
+      </li>
+    <% } %>
+
+  </ul>
+</nav>

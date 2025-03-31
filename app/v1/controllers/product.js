@@ -1,76 +1,87 @@
-const productModle = require("../models/product");
+// ✅ ייבוא המודלים של מוצרים וקטגוריות
+const productModel = require("../models/product");
+const categoryModel = require("../models/category");
 
-
+// ✅ ייצוא כל הפונקציות
 module.exports = {
-  // פונקציה לקבלת כל המוצרים
-  GetAll: (req, res) => {
-    console.log("לא כאן", req.body);
+  // ✅ קבלת כל המוצרים עם סינון לפי קטגוריה ומיון לפי מחיר
+  GetAll: async (req, res) => {
     try {
-      // חיפוש כל המוצרים במסד הנתונים
-      productModel.find().then((products) => {
-        // אם אתה רוצה להציג את המוצרים בדף HTML, אתה משתמש ב-res.render
-        res.render('products', { products: products });
+      const { category, sort } = req.query; // קבלת פרמטרים מה-URL
+
+      const filter = {};
+      if (category) {
+        filter.cid = category; // סינון לפי קטגוריה
+      }
+
+      let sortOption = {};
+      if (sort === "price_asc") {
+        sortOption.price = 1; // מיון לפי מחיר עולה
+      } else if (sort === "price_desc") {
+        sortOption.price = -1; // מיון לפי מחיר יורד
+      }
+
+      const products = await productModel.find(filter).sort(sortOption); // שליפת מוצרים עם סינון ומיון
+      const categories = await categoryModel.find(); // שליפת כל הקטגוריות
+
+      // שליחת הנתונים לתבנית EJS
+      res.render("products/products", {
+        products,               // רשימת מוצרים
+        categories,             // רשימת קטגוריות
+        selectedCategory: category || "", // לשמירה על בחירה נוכחית בטופס
+        sort: sort || ""        // לשמירה על מיון נוכחי בטופס
       });
     } catch (err) {
-      // במקרה של שגיאה בשרת, מחזירים קוד שגיאה 500 עם הודעה
+      console.error("שגיאה בשליפת מוצרים:", err);
       return res.status(500).json({ Msg: "שגיאה בשרת (500)" });
     }
   },
 
-  // פונקציה לקבלת מוצר לפי מזהה
+  // ✅ קבלת מוצר לפי מזהה (pid)
   GetByID: (req, res) => {
     try {
-      // חיפוש מוצר לפי מזהה (pid) שנמצא ב-URL
-      productModle.find({ pid: req.params.id }).then((product) => {
-        // מחזירים את המידע של המוצר כ-JSON
+      productModel.find({ pid: req.params.id }).then((product) => {
         return res.status(200).json(product);
       });
-    } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
-      return res.status(500).json({ Msg: "500 server Eror" });
+    } catch (err) {
+      console.error("שגיאה בשליפת מוצר לפי מזהה:", err);
+      return res.status(500).json({ Msg: "500 server Error" });
     }
   },
 
-  // פונקציה להוספת מוצר חדש
+  // ✅ הוספת מוצר חדש למסד הנתונים
   AddNew: (req, res) => {
     try {
-      // הוספת נתונים חדשים (מוצר) למסד הנתונים
-      productModle.insertMany([req.body]).then((data) => {
-        // כאן אין צורך ב-res.render כי זה פעולה של הוספה ולא הצגת מידע למשתמש
+      productModel.insertMany([req.body]).then((data) => {
         return res.status(200).json(data);
       });
-    } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
-      return res.status(500).json({ Msg: "500 server Eror" });
+    } catch (err) {
+      console.error("שגיאה בהוספת מוצר:", err);
+      return res.status(500).json({ Msg: "500 server Error" });
     }
   },
 
-  // פונקציה לעדכון מוצר לפי מזהה
+  // ✅ עדכון מוצר קיים לפי מזהה (pid)
   UpdateByID: (req, res) => {
     try {
-      // עדכון מוצר לפי מזהה (pid) שנמצא ב-URL
-      productModle.updateOne({ pid: req.params.id }, req.body).then((data) => {
-        // גם כאן אין צורך ב-res.render כי אנחנו מעדכנים ולא מציגים מידע בדף
+      productModel.updateOne({ pid: req.params.id }, req.body).then((data) => {
         return res.status(200).json(data);
       });
-    } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
-      return res.status(500).json({ Msg: "500 server Eror" });
+    } catch (err) {
+      console.error("שגיאה בעדכון מוצר:", err);
+      return res.status(500).json({ Msg: "500 server Error" });
     }
   },
 
-  // פונקציה למחיקת מוצר לפי מזהה
+  // ✅ מחיקת מוצר לפי מזהה (pid)
   DeletByID: (req, res) => {
     try {
-      // מחיקת מוצר לפי מזהה (pid) שנמצא ב-URL
-      productModle.deleteOne({ pid: req.params.id }).then((data) => {
-        // גם כאן אין צורך ב-res.render כי מדובר במחיקה ולא בהצגת מידע
+      productModel.deleteOne({ pid: req.params.id }).then((data) => {
         return res.status(200).json(data);
       });
-    } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
-      return res.status(500).json({ Msg: "500 server Eror" });
+    } catch (err) {
+      console.error("שגיאה במחיקת מוצר:", err);
+      return res.status(500).json({ Msg: "500 server Error" });
     }
-  },
+  }
 };
-

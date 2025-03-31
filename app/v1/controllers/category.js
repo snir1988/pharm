@@ -1,58 +1,59 @@
-const categoryModle = require("../models/category"); // ייבוא המודל של הקטגוריות
+// ייבוא מודל הקטגוריות ממסד הנתונים
+const categoryModle = require("../models/category");
 
 module.exports = {
-  // פונקציה לקבלת כל הקטגוריות
+  // פונקציה לקבלת כל הקטגוריות מהמסד והצגתן בדף
   GetAll: (req, res) => {
     try {
-      // חיפוש כל הקטגוריות במסד הנתונים
+      // מבצע חיפוש של כל הקטגוריות במסד הנתונים
       categoryModle.find().then((categories) => {
-        // שולחים את המידע לתבנית בשם 'categories' כדי להציג את הקטגוריות בדף HTML
-        res.render("categories", { categories: categories });
+        // מציג את התבנית 'products/categories' עם רשימת הקטגוריות
+        res.render("products/categories", { categories: categories });
       });
     } catch (err) {
-      // במקרה של שגיאה בשרת, מחזירים קוד שגיאה 500 עם הודעה
+      // במקרה של שגיאה, מחזיר תשובת שגיאה 500
       return res.status(500).json({ Msg: "שגיאה בשרת (500)" });
     }
   },
 
-  // פונקציה לקבלת קטגוריה לפי מזהה
+  // פונקציה שמחזירה קטגוריה לפי מזהה (cid)
   GetByID: (req, res) => {
     try {
-      // חיפוש קטגוריה לפי מזהה (cid) שנמצא ב-URL
+      // מחפש קטגוריה לפי מזהה שנשלח בפרמטרים של ה-URL
       categoryModle.find({ cid: req.params.id }).then((category) => {
-        // מחזירים את המידע של הקטגוריה כ-JSON
+        // מחזיר את הקטגוריה שנמצאה כ-JSON
         return res.status(200).json(category);
       });
     } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
+      // במקרה של שגיאה, מחזיר תשובת שגיאה 500
       return res.status(500).json({ Msg: "500 server Eror" });
     }
   },
 
-  // פונקציה להוספת קטגוריה חדשה
+  // פונקציה להוספת קטגוריה חדשה למסד הנתונים
   AddNew: (req, res) => {
     try {
-      // הוספת נתונים חדשים (קטגוריה) למסד הנתונים
+      // מוסיף את הקטגוריה מהבקשה לגוף המסד
       categoryModle.insertMany([req.body]).then((data) => {
-        // מחזירים את המידע שנוסף כ-JSON
+        // מחזיר את המידע שנוסף כ-JSON
         return res.status(200).json(data);
       });
     } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
+      // במקרה של שגיאה, מחזיר תשובת שגיאה 500
       return res.status(500).json({ Msg: "500 server Eror" });
     }
   },
 
-  // פונקציה לעדכון קטגוריה לפי מזהה
+  // פונקציה לעדכון קטגוריה קיימת לפי מזהה
   UpdateByID: (req, res) => {
     try {
-      // עדכון קטגוריה לפי מזהה (cid) שנמצא ב-URL
+      // מבצע עדכון של קטגוריה לפי cid עם הנתונים החדשים שנשלחו בגוף הבקשה
       categoryModle.updateOne({ cid: req.params.id }, req.body).then((data) => {
-        // מחזירים את המידע המעודכן כ-JSON
+        // מחזיר את תוצאת העדכון כ-JSON
         return res.status(200).json(data);
       });
     } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
+      // במקרה של שגיאה, מחזיר תשובת שגיאה 500
       return res.status(500).json({ Msg: "500 server Eror" });
     }
   },
@@ -60,13 +61,13 @@ module.exports = {
   // פונקציה למחיקת קטגוריה לפי מזהה
   DeletByID: (req, res) => {
     try {
-      // מחיקת קטגוריה לפי מזהה (cid) שנמצא ב-URL
+      // מוחק את הקטגוריה לפי מזהה מהפרמטרים
       categoryModle.deleteOne({ cid: req.params.id }).then((data) => {
-        // מחזירים את המידע על המחיקה כ-JSON
+        // מחזיר את תוצאת המחיקה כ-JSON
         return res.status(200).json(data);
       });
     } catch {
-      // במקרה של שגיאה, מחזירים קוד שגיאה 500 עם הודעה
+      // במקרה של שגיאה, מחזיר תשובת שגיאה 500
       return res.status(500).json({ Msg: "500 server Eror" });
     }
   },

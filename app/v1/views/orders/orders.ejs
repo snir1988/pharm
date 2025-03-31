@@ -1,9 +1,28 @@
-<%- include('partials/header') %>
-<h1>All Orders</h1>
-<ul>
-  <% orders.forEach(order => { %>
-    <li>Order ID: <%= order._id %></li>
-  <% }) %>
-</ul>
-<%- include('partials/footer') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
 
+<h1>All Orders</h1>
+
+<% if (orders.length === 0) { %>
+  <p>No orders found.</p>
+<% } else { %>
+  <ul>
+    <% orders.forEach(order => { %>
+      <li style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+        <strong>Order ID:</strong> <%= order._id %><br>
+        <strong>Total Price:</strong> $<%= order.totalPrice %><br>
+        <strong>Date:</strong> <%= new Date(order.orderDate).toLocaleDateString() %><br>
+        <strong>Products:</strong>
+        <ul>
+          <% order.products.forEach(item => { %>
+            <li>
+              Product ID: <%= item.productId %> - Quantity: <%= item.quantity %>
+            </li>
+          <% }) %>
+        </ul>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<%- include('../partials/footer') %>

@@ -1,11 +1,32 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // ייבוא mongoose
 
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
-});
+// הגדרת הסכימה של המשתמש
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true, // חובה להזין שם
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true, // חובה להזין אימייל
+      unique: true, // אימייל חייב להיות ייחודי
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true, // חובה להזין סיסמה
+    },
+  },
+  {
+    timestamps: true, // מוסיף אוטומטית createdAt ו־updatedAt
+  }
+);
 
-const model = mongoose.model("User", userSchema);
+// יצירת המודל של המשתמש מתוך הסכימה
+const User = mongoose.model("User", userSchema);
 
-module.exports = model;
+// ייצוא המודל
+module.exports = User;

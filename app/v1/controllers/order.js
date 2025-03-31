@@ -1,16 +1,20 @@
-const orderModel = require('../models/order'); // ייבוא המודל של הזמנות
+// ייבוא המודל של ההזמנות ממסד הנתונים
+const orderModel = require('../models/order');
 
 module.exports = {
+  // פונקציה לקבלת כל ההזמנות והצגתן בדף
   GetAll: (req, res) => {
-    console.log("לא כאן", req.body); // הדפסת גוף הבקשה בקונסול למטרות debugging
+    console.log("לא כאן", req.body); // 🧪 הדפסת תוכן הבקשה לצורכי בדיקה (debug)
+
     try {
+      // חיפוש כל ההזמנות במסד הנתונים
       orderModel.find().then((orders) => {
-        // אם לא הייתה שגיאה, נרנדר את הדף של ההזמנות ומעבירים את רשימת ההזמנות
-        res.render('orders', { orders: orders }); // מציג את הדף עם רשימת ההזמנות
+        // רינדור של דף 'orders/order' עם רשימת ההזמנות
+        res.render('orders/order', { orders: orders }); // ✅ עודכן הנתיב לפי views/orders/order.ejs
       });
     } catch (err) {
-      // אם הייתה שגיאה, מחזירים שגיאת שרת
-      return res.status(500).json({ Msg: "שגיאה בשרת (500)" }); // שגיאה אם לא ניתן להביא את ההזמנות
+      // טיפול במקרה של שגיאת שרת
+      return res.status(500).json({ Msg: "שגיאה בשרת (500)" });
     }
   },
 };

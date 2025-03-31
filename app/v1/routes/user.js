@@ -1,12 +1,20 @@
 const express = require("express"); // ייבוא Express ליצירת ראוטר
-const { loginPage, login } = require("../controllers/user"); // ייבוא הפונקציות מבקר המשתמשים
+const { loginPage, login, register } = require("../controllers/user"); // ייבוא הפונקציות מה-controller של משתמשים
 
-const router = express.Router(); // יצירת ראוטר חדש
+const router = express.Router(); // יצירת אובייקט router
 
-// ✅ נתיב להצגת עמוד ההתחברות - GET
-router.get("/login", loginPage); // יטען את login.ejs מתוך views (app/v1/views)
+// ✅ GET - הצגת עמוד ההתחברות
+router.get("/login", loginPage); // טוען את views/auth/login.ejs
 
-// ✅ נתיב להתחברות לאחר שליחת טופס - POST
-router.post("/login", login); // פונקציה שמטפלת בנתוני ההתחברות
+// ✅ POST - התחברות משתמש
+router.post("/login", login); // מקבל את טופס ההתחברות ומבצע אימות
 
-module.exports = router; // ייצוא ה-router לשימוש בקובץ app.js
+// ✅ GET - הצגת עמוד הרישום
+router.get("/register", (req, res) => {
+  res.render("auth/register", { msg: null, error: false }); // מציג טופס ריק בהתחלה
+});
+
+// ✅ POST - שליחת טופס רישום
+router.post("/register", register); // מבצע רישום בפועל
+
+module.exports = router; // ייצוא ה-router לשימוש ב-app.js

@@ -1,0 +1,121 @@
+/* עיצוב כללי לעגלה */
+.cart-page {
+  max-width: 1200px; /* רוחב מקסימלי לעגלה */
+  margin: auto; /* ממרכז את העגלה */
+  padding: 20px; /* רווח פנימי לעגלה */
+}
+
+.cart-title {
+  text-align: center; /* מרכז את כותרת העגלה */
+  margin-bottom: 20px; /* רווח מתחת לכותרת */
+  font-size: 2.5rem; /* גודל גופן לכותרת */
+}
+
+.empty-cart {
+  text-align: center; /* מרכז את הטקסט של "העגלה ריקה" */
+  font-size: 1.2rem; /* גודל גופן */
+  color: #888; /* צבע אפור */
+}
+
+/* גריד מוצרים בעגלה */
+.cart-grid {
+  display: grid; /* גריד לעגלה */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* עמודות גמישות */
+  gap: 20px; /* רווח בין הפריטים */
+  margin-top: 20px; /* רווח מעל הגריד */
+}
+
+/* כרטיס מוצר בעגלה */
+.cart-card {
+  display: flex; /* שימוש ב-flexbox לפריסת תוכן כרטיס המוצר */
+  background: #fff; /* רקע לבן */
+  border: 1px solid #ddd; /* גבול אפור בהיר סביב הכרטיס */
+  border-radius: 10px; /* פינות מעוגלות */
+  overflow: hidden; /* הסתרת תכנים חורגים */
+  padding: 15px; /* רווח פנימי בכרטיס */
+  align-items: center; /* יישור התוכן במרכז הכרטיס */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* צל עדין */
+  max-height: 300px; /* הגבלת גובה מקסימלי לכרטיס */
+}
+
+.cart-card img {
+  width: 80px; /* גודל אחיד לתמונות */
+  height: 80px; /* גובה אחיד */
+  object-fit: contain; /* שמירה על יחס התמונה */
+  margin-right: 20px; /* רווח בין התמונה לפרטים */
+  border-radius: 8px; /* פינות מעוגלות לתמונה */
+  max-height: 80px; /* הגבלת גובה מקסימלי לתמונה */
+}
+
+/* פרטי המוצר בעגלה */
+.cart-details {
+  flex: 1; /* מאפשר לפרטים לתפוס את כל השטח הנותר */
+  word-wrap: break-word; /* שובר מילים אם הן ארוכות מדי */
+}
+
+.cart-details h3 {
+  margin: 0 0 10px; /* רווח מתחת לשם המוצר */
+  font-size: 1rem; /* גודל גופן של שם המוצר */
+  overflow: hidden; /* חותך טקסט ארוך */
+  text-overflow: ellipsis; /* מוסיף "..." אם הטקסט ארוך מדי */
+  white-space: nowrap; /* מונע שבירת שורות */
+}
+
+.cart-details p {
+  margin: 5px 0; /* רווח בין פסקאות */
+  font-size: 0.9rem; /* גודל גופן קטן יותר למחיר */
+}
+
+/* טופס עדכון כמות */
+.cart-details form {
+  display: flex; /* תצוגת גמישה של הטופס */
+  gap: 10px; /* רווח בין האלמנטים */
+  align-items: center; /* יישור במרכז */
+  margin: 10px 0; /* רווח בין הטופס לשאר התוכן */
+}
+
+.cart-details input[type="number"] {
+  width: 60px; /* גודל קלט */
+  padding: 5px; /* רווח פנימי */
+  font-size: 0.9rem; /* גודל גופן קטן יותר לקלט */
+}
+
+.cart-details button {
+  padding: 6px 10px; /* רווח פנימי בכפתור */
+  background-color: #0074d9; /* צבע רקע כחול לכפתור */
+  color: white; /* צבע טקסט לבן */
+  border: none; /* הסרת גבול */
+  border-radius: 4px; /* פינות מעוגלות לכפתור */
+  cursor: pointer; /* סמן יד כאשר מרחפים על הכפתור */
+}
+
+.cart-details button:hover {
+  background-color: #005bb5; /* שינוי צבע הכפתור בריחוף */
+}
+
+/* סה"כ לשורה בעגלה */
+.line-total {
+  font-weight: bold; /* הדגשה של סה"כ לכל מוצר */
+  font-size: 1rem; /* גודל גופן סביר */
+}
+
+/* סה"כ לתשלום */
+.cart-total {
+  text-align: center; /* ממרכז את סה"כ התשלום */
+  margin-top: 30px; /* רווח מעל */
+  font-size: 1.3rem; /* גודל גופן בולט */
+  font-weight: bold; /* הדגשה של הסכום */
+}
+.remove-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.remove-button:hover {
+  background-color: #e60000;
+}

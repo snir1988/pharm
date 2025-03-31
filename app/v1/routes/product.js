@@ -1,17 +1,27 @@
-const express = require("express");
+const express = require("express"); // ייבוא Express
 const {
   GetAll,
   GetByID,
   AddNew,
   UpdateByID,
   DeletByID,
-} = require("../controllers/product");
-const router = express.Router();
+} = require("../controllers/product"); // ייבוא הפונקציות מה-controller של מוצרים
 
-router.get("/", GetAll);
-router.get("/:id", GetByID);
-router.post("/", AddNew);
-router.put("/:id", UpdateByID);
-router.delete("/:id", DeletByID);
+const router = express.Router(); // יצירת router חדש
 
-module.exports = router;
+// ✅ קבלת כל המוצרים
+router.get("/", GetAll); // GET /product
+
+// ✅ קבלת מוצר לפי מזהה (pid)
+router.get("/:id", GetByID); // GET /product/:id
+
+// ✅ הוספת מוצר חדש
+router.post("/", AddNew); // POST /product
+
+// ✅ עדכון מוצר לפי מזהה
+router.put("/:id", UpdateByID); // PUT /product/:id
+
+// ✅ מחיקת מוצר לפי מזהה
+router.delete("/:id", DeletByID); // DELETE /product/:id
+
+module.exports = router; // ייצוא ה-router לשימוש ב-app.js

@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<link rel="stylesheet" href="/styles/global.css" />
+<link rel="stylesheet" href="/styles/products.css" />
+
+<section class="product-page">
+  <h1 class="page-title">המוצרים שלנו</h1>
+
+  <!-- ✅ טופס סינון לפי קטגוריה ומיון לפי מחיר -->
+  <form method="GET" action="/product" class="product-filters">
+    <label for="category">קטגוריה:</label>
+    <select name="category" id="category">
+      <option value="">הכול</option>
+      <% categories.forEach(cat => { %>
+        <option value="<%= cat.cid %>" <%= selectedCategory == cat.cid ? 'selected' : '' %>>
+          <%= cat.pname %>
+        </option>
+      <% }) %>
+    </select>
+
+    <label for="sort">מיין לפי:</label>
+    <select name="sort" id="sort">
+      <option value="">ללא מיון</option>
+      <option value="price_asc" <%= sort == 'price_asc' ? 'selected' : '' %>>מחיר: מהנמוך לגבוה</option>
+      <option value="price_desc" <%= sort == 'price_desc' ? 'selected' : '' %>>מחיר: מהגבוה לנמוך</option>
+    </select>
+
+    <button type="submit">הצג</button>
+  </form>
+
+  <% if (products.length === 0) { %>
+    <p class="no-products">אין מוצרים להצגה כרגע.</p>
+  <% } else { %>
+    <div class="product-grid">
+      <% products.forEach(product => { %>
+        <div class="product-card">
+          <% if (product.picname) { %>
+            <img src="/images/<%= product.picname %>" alt="<%= product.pname %>" />
+          <% } %>
+          <h3><%= product.pname %></h3>
+          <p class="price">₪<%= product.price %></p>
+
+          <form action="/cart/add" method="POST">
+            <input type="hidden" name="pid" value="<%= product.pid %>" />
+            <button type="submit" class="add-to-cart-btn">הוסף לעגלה</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,64 +1,84 @@
-const express = require("express"); // ייבוא ספריית express, משמשת לבניית אפליקציות ווב
-const morgan = require("morgan"); // ייבוא ספריית morgan, לצורך לוגים של בקשות HTTP
-const path = require("path"); // ייבוא ספריית path לניהול נתיבים
-const app = express(); // יצירת אובייקט express עבור האפליקציה
-const bcrypt = require("bcryptjs"); // במקום bcrypt, השתמש ב-bcryptjs
-const mongoose = require("mongoose"); // ייבוא ספריית mongoose, לצורך חיבור למונגו דטהבייס
-const productRouter = require("./app/v1/routes/product"); // ייבוא הנתיב לטיפול במוצרים
-const categoryRouter = require("./app/v1/routes/category"); // ייבוא הנתיב לטיפול בקטגוריות
-const userRouter = require("./app/v1/routes/user"); // ייבוא הנתיבים של האימות
-const userRoutes = require("./app/v1/routes/user"); // ייבוא הנתיב של המשתמשים
+const express = require("express"); // ייבוא ספריית express – לבניית שרת
+const morgan = require("morgan"); // ייבוא morgan – לוגים של בקשות HTTP
+const path = require("path"); // ייבוא path – לניהול נתיבים
+const app = express(); // יצירת אפליקציית express
+const bcrypt = require("bcryptjs"); // הצפנת סיסמאות
+const session = require('express-session'); // ניהול session (למשתמשים, עגלה וכו')
+const mongoose = require("mongoose"); // ייבוא mongoose – חיבור למסד נתונים
 
-const orderRouter = require("./app/v1/routes/order"); // ייבוא הנתיבים של הזמנות
+// 📁 ייבוא ראוטרים וקונטרולרים
+const productRouter = require("./app/v1/routes/product");
+const categoryRouter = require("./app/v1/routes/category");
+const userRouter = require("./app/v1/routes/user");
+const orderRouter = require("./app/v1/routes/order");
+const cartRoutes = require('./app/v1/routes/cart');
 const categoryController = require("./app/v1/controllers/category");
 const orderController = require("./app/v1/controllers/order");
 const userController = require("./app/v1/controllers/user");
-const open = require("open"); // ייבוא מודול 'open' לפתיחת הדפדפן
+const open = require("open"); // לפתיחת דפדפן אוטומטית (אם תרצה בהמשך)
 
-app.use(express.json()); // מאפשר לאפליקציה לקבל בקשות מסוג JSON
+// ✅ מאפשר קריאת בקשות בפורמט JSON
+app.use(express.json());
 
-// חיבור למונגו DB עם חיבור מחבר בסביבה
+// ✅ התחברות ל-MongoDB
 const mongoConnStr = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@curd-demo-two-cluster.8pd7zcn.mongodb.net/'webpharm`;
 
-// חיבור למונגו באמצעות המחרוזת שמספקת את פרטי הגישה
 mongoose
   .connect(mongoConnStr)
   .then(() => {
-    console.log("connected to mongo"); // הצגת הודעה ב-console במקרה של חיבור מוצלח
+    console.log("connected to mongo"); // הודעה על חיבור מוצלח
   })
   .catch((err) => {
-    console.log("Error connecting to MongoDB:", err); // טיפול בשגיאות אם החיבור נכשל
+    console.log("Error connecting to MongoDB:", err); // טיפול בשגיאה
   });
 
-app.use(morgan("dev")); // שימוש ב-morgan כדי לעקוב אחרי בקשות HTTP (לוגים בפורמט פיתוח)
-app.use(express.urlencoded({ extended: true })); // מאפשר לאפליקציה לקבל בקשות מסוג URL-encoded (כולל נתונים בטפסים)
+// ✅ לוגים של בקשות
+app.use(morgan("dev"));
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "app", "v1", "views")); // ✅ מתוקן: כך Express ימצא את views
+// ✅ מאפשר שליחת טפסים בפורמט x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-// 🧹 מחקתי שורות מיותרות או כפולות של static:
-app.use(express.static(path.join(__dirname, "public"))); // ✅ אחת מספיקה
+// ✅ הגדרת express-session (לפני שימוש ב-session)
+app.use(session({
+  secret: 'secret_key_for_cart', // מפתח ההצפנה של הסשן
+  resave: false,
+  saveUninitialized: true
+}));
 
-// 🛠 תיקון: זו הפנייה נכונה לדף הבית (אם login.ejs נמצא ב-app/v1/views)
-app.get("/", (req, res) => {
-  res.render("login"); // ✅ אין צורך לציין auth אם הקובץ לא נמצא בתיקיית auth
+// ✅ הגדרת נתונים גלובליים לתבניות EJS – ניגשים אליהם ישירות ב־navbar.ejs
+app.use((req, res, next) => {
+  res.locals.session = req.session; // session לכל תבנית
+  res.locals.user = req.session.user || null; // user מחובר אם קיים
+  next();
 });
 
-// 🛠 תיקון - מחקתי כפילויות והוספתי רק router אחד ל-user
-app.use("/", userRouter);
+// ✅ הגדרת מנוע תבניות EJS
+app.set("view engine", "ejs");
 
-// 🧼 הסרתי app.get("/login", userRouter); → זה שגוי! אתה לא שולח router לפונקציה get
-// במקום זה, אם יש צורך בנתיב /login – כבר מוגדר ב-router של user.js, והוא מחובר דרך app.use("/user")
+// ✅ הגדרת מיקום תיקיית views
+app.set("views", path.join(__dirname, "app", "v1", "views"));
 
-// 🛠 שאר הנתיבים נשארים:
-app.use("/product", productRouter);
-app.use("/category", categoryRouter);
-app.use("/order", orderRouter);
+// ✅ הגדרת תיקיית קבצים סטטיים (CSS, תמונות וכו')
+app.use(express.static(path.join(__dirname, "public")));
 
-// נתיב register דרך controller - סבבה אם אתה לא משתמש ב-router עבורו:
+
+// ✅ נתיב ראשי – עמוד התחברות
+app.get("/", (req, res) => {
+  res.render("auth/login"); // מציג את login.ejs מתיקיית views/auth
+});
+
+// ✅ חיבור כל הראוטרים לפי נתיבם
+app.use("/", userRouter); // טיפולים כמו login, register (אם קיימים שם)
+app.use("/product", productRouter); // מוצרי חנות
+app.use("/category", categoryRouter); // קטגוריות
+app.use("/order", orderRouter); // הזמנות
+app.use("/cart", cartRoutes); // עגלת קניות
+
+
+// ✅ במידה ואתה לא משתמש בראוטר ל-register – הגדרה ישירה
 app.get("/register", userController.register);
 
-// טיפול ב-404:
+// ✅ טיפול בנתיבים שלא קיימים (404)
 app.all("*", (req, res) => {
   return res.status(404).json({ Msg: "not found 404" });
 });

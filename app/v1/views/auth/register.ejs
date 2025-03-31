@@ -1,21 +1,32 @@
-<%- include('partials/header') %>
-<%- include('partials/navbar') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+<link rel="stylesheet" href="/styles/global.css">
+<link rel="stylesheet" href="/styles/register.css">
 
-<h1>Register</h1>
-<form action="/api/register" method="POST">
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" name="name" required>
+<section class="register-section">
+  <div class="register-box">
+    <h2>הרשמה</h2>
+    <form action="/register" method="POST">
+      <div class="form-group">
+        <label for="name">שם מלא</label> <!-- ✅ שונה מ-fullname ל-name -->
+        <input type="text" id="name" name="name" required> <!-- ✅ שינוי name="name" -->
+      </div>
+      <div class="form-group">
+        <label for="email">דוא"ל</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">סיסמה</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">אישור סיסמה</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+      </div>
+      <button type="submit" class="register-btn">צור חשבון</button>
+    </form>
+    <p class="login-link">כבר יש לך חשבון? <a href="/login">התחבר כאן</a></p>
   </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" name="email" required>
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" name="password" required>
-  </div>
-  <button type="submit">Register</button>
-</form>
+</section>
 
-<%- include('partials/footer') %>
+<%- include('../partials/footer') %>
