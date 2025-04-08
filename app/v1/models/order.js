@@ -26,6 +26,14 @@ const orderSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
+
+  // ✅ שדה חדש: סטטוס ההזמנה
+  status: {
+    type: String,
+    enum: ['pending', 'paid', 'cancelled'], // ערכים מותרים
+    default: 'pending', // כברירת מחדל - ממתין לתשלום
+  },
+
   orderDate: {
     type: Date,
     default: Date.now,

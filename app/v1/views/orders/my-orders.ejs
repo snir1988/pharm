@@ -1,0 +1,37 @@
+<%- include('../partials/header') %> <!-- כולל את קובץ ה־header הכללי -->
+<%- include('../partials/navbar') %> <!-- כולל את תפריט הניווט העליון -->
+
+<h1>ההזמנות שלי</h1> <!-- כותרת ראשית של הדף -->
+
+<% if (orders.length === 0) { %> <!-- אם אין הזמנות כלל -->
+  <p>לא נמצאו הזמנות.</p> <!-- הודעה על חוסר בהזמנות -->
+<% } else { %>
+  <div class="orders-list"> <!-- קונטיינר לכל ההזמנות -->
+    <% orders.forEach(order => { %> <!-- מעבר על כל ההזמנות -->
+      <div class="order-card"> <!-- תיבה אחת להזמנה -->
+        <h3>הזמנה מספר: <%= order._id %></h3> <!-- הצגת מזהה ההזמנה -->
+        <p><strong>תאריך:</strong> <%= new Date(order.orderDate).toLocaleDateString() %></p> <!-- תאריך ההזמנה -->
+        <p><strong>סטטוס:</strong>
+          <%= order.status === 'paid' ? 'שולם ✅' : 'ממתין ⏳' %> <!-- הצגת הסטטוס -->
+        </p>
+        <p><strong>סכום כולל:</strong> ₪<%= order.totalPrice %></p> <!-- סכום כולל של ההזמנה -->
+
+        <h4>מוצרים:</h4>
+        <ul>
+          <% order.products.forEach(item => { %> <!-- מעבר על כל המוצרים בתוך ההזמנה -->
+            <li>
+              מוצר: <%= item.productId?.pname || 'לא זמין' %> <!-- שם המוצר (אם קיים) -->
+              | כמות: <%= item.quantity %> <!-- כמות שנרכשה -->
+            </li>
+          <% }) %>
+        </ul>
+
+        <% if (order.status === 'pending') { %> <!-- אם ההזמנה עדיין ממתינה לתשלום -->
+          <a href="/orders/payment/<%= order._id %>" class="btn">לתשלום</a> <!-- כפתור מעבר לתשלום -->
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %> <!-- כולל את ה־footer הכללי -->

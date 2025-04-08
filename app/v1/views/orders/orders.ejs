@@ -12,6 +12,8 @@
         <strong>Order ID:</strong> <%= order._id %><br>
         <strong>Total Price:</strong> $<%= order.totalPrice %><br>
         <strong>Date:</strong> <%= new Date(order.orderDate).toLocaleDateString() %><br>
+        <strong>Status:</strong> <%= order.status || 'pending' %><br>
+
         <strong>Products:</strong>
         <ul>
           <% order.products.forEach(item => { %>
@@ -20,6 +22,11 @@
             </li>
           <% }) %>
         </ul>
+
+        <!-- ✅ כפתור תשלום רק אם ההזמנה עדיין ממתינה -->
+        <% if (order.status === 'pending') { %>
+          <a href="/orders/payment/<%= order._id %>" class="btn-pay">לתשלום</a>
+        <% } %>
       </li>
     <% }) %>
   </ul>

@@ -43,6 +43,20 @@ body {
     background-color: #f0f0f0;
     color: #003d80;
   }
+  /* 🎯 עבור צפיפות גבוהה במסכים קטנים – מעביר את הניווט לשורות */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-wrap: wrap; /* ירד שורה אוטומטית */
+    justify-content: center; /* שמור על מרכז */
+    gap: 15px; /* פחות רווח בין הקישורים */
+  }
+
+  .nav-links li a {
+    font-size: 0.95rem; /* טיפה יותר קטן במסכים קטנים */
+    padding: 6px 10px; /* פחות ריווח */
+  }
+}
+
   
   /* ✅ סגנון עמוד הצלחה */
 
@@ -83,4 +97,81 @@ body {
   .footer-content p {
     margin: 5px 0;
   }
-  
+  /* === אישור תשלום === */
+.confirmation-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #eafbee; /* רקע ירקרק עדין */
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.confirmation-container h1 {
+  color: #2e7d32; /* ירוק כהה */
+}
+
+.confirmation-container p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.confirmation-container .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2e7d32;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.confirmation-container .btn:hover {
+  background-color: #1b5e20;
+}
+/* כפתור תשלום */
+.btn-pay {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #2e7d32;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-pay:hover {
+  background-color: #1b5e20;
+}
+/* כפתור "המשך לתשלום" */
+.btn-checkout {
+  background-color: #2e7d32;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-checkout:hover {
+  background-color: #1b5e20;
+}
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+

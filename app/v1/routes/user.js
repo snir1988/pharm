@@ -1,5 +1,12 @@
 const express = require("express"); // ייבוא Express ליצירת ראוטר
-const { loginPage, login, register } = require("../controllers/user"); // ייבוא הפונקציות מה-controller של משתמשים
+const {
+  loginPage,
+  login,
+  register,
+  logout
+} = require("../controllers/user"); // ייבוא הפונקציות מה-controller של משתמשים
+
+const authMiddleware = require("../middelewares/auth"); // ✅ ייבוא מידלוור לבדיקה אם המשתמש מחובר
 
 const router = express.Router(); // יצירת אובייקט router
 
@@ -16,5 +23,8 @@ router.get("/register", (req, res) => {
 
 // ✅ POST - שליחת טופס רישום
 router.post("/register", register); // מבצע רישום בפועל
+
+// ✅ GET - יציאת משתמש (דורש התחברות)
+router.get("/logout", authMiddleware, logout); // משתמש במידלוור כדי לוודא שהמשתמש מחובר
 
 module.exports = router; // ייצוא ה-router לשימוש ב-app.js

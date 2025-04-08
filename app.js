@@ -5,6 +5,7 @@ const app = express(); // יצירת אפליקציית express
 const bcrypt = require("bcryptjs"); // הצפנת סיסמאות
 const session = require('express-session'); // ניהול session (למשתמשים, עגלה וכו')
 const mongoose = require("mongoose"); // ייבוא mongoose – חיבור למסד נתונים
+const cookieParser = require("cookie-parser");
 
 // 📁 ייבוא ראוטרים וקונטרולרים
 const productRouter = require("./app/v1/routes/product");
@@ -68,11 +69,14 @@ app.get("/", (req, res) => {
 });
 
 // ✅ חיבור כל הראוטרים לפי נתיבם
+app.use(cookieParser());
 app.use("/", userRouter); // טיפולים כמו login, register (אם קיימים שם)
 app.use("/product", productRouter); // מוצרי חנות
 app.use("/category", categoryRouter); // קטגוריות
 app.use("/order", orderRouter); // הזמנות
 app.use("/cart", cartRoutes); // עגלת קניות
+
+
 
 
 // ✅ במידה ואתה לא משתמש בראוטר ל-register – הגדרה ישירה

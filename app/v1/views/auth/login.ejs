@@ -3,10 +3,20 @@
 <link rel="stylesheet" href="/styles/global.css">
 <link rel="stylesheet" href="/styles/login.css">
 
-
 <section class="login-section">
   <div class="login-box">
     <h2>התחברות</h2>
+
+    <!-- ✅ הצגת הודעה ירוקה (הצלחה) אם msg קיים ואין error -->
+    <% if (typeof msg !== 'undefined' && msg && !error) { %>
+      <p class="login-message success"><%= msg %></p>
+    <% } %>
+
+    <!-- ✅ הצגת הודעה אדומה (שגיאה) אם error = true -->
+    <% if (typeof msg !== 'undefined' && msg && error) { %>
+      <p class="login-message error"><%= msg %></p>
+    <% } %>
+
     <form action="/login" method="POST">
       <div class="form-group">
         <label for="email">דוא"ל</label>
@@ -18,6 +28,7 @@
       </div>
       <button type="submit" class="login-btn">התחבר</button>
     </form>
+
     <p class="register-link">אין לך חשבון? <a href="/register">הירשם כאן</a></p>
   </div>
 </section>

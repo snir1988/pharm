@@ -84,6 +84,37 @@ exports.removeFromCart = (req, res) => {
 
   res.redirect('/cart');
 };
+// ✅ פונקציה להצגת עמוד מעבר לתשלום
+exports.checkoutPage = async (req, res) => {
+  const cart = req.session.cart || []; // קבלת עגלת הקניות מה־session
+
+  if (cart.length === 0) {
+    return res.redirect('/cart'); // אם אין עגלה – החזר לעגלה
+  }
+
+  // שליפת פרטי המוצרים מהמסד
+  const detailedCart = await Promise.all(cart.map(async item => {
+    const product = await Product.findOne({ pid: item.pid });
+
+    return {
+      pid: item.pid,
+      pname: product.pname,
+      price: product.price,
+      qty: item.qty,
+      total: product.price * item.qty
+    };
+  }));
+
+  // חישוב סכום כולל
+  const totalAmount = detailedCart.reduce((sum, item) => sum + item.total, 0);
+
+  // שליחת הנתונים לתבנית checkout.ejs
+  res.render("orders/checkout", {
+    cart: detailedCart,
+    totalAmount,
+    user: req.user // יאפשר תצוגה אישית – נשלף מהטוקן (authMiddleware)
+  });
+};
 
 
 

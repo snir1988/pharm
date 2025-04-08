@@ -86,4 +86,23 @@ body {
   .register-link a:hover {
     text-decoration: underline;
   }
+  .login-message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .login-message.success {
+    background-color: #e6ffed;
+    color: #2e7d32;
+    border: 1px solid #a4d4ae;
+  }
+  
+  .login-message.error {
+    background-color: #ffe6e6;
+    color: #d32f2f;
+    border: 1px solid #f5b5b5;
+  }
   

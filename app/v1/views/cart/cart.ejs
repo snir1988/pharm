@@ -24,7 +24,7 @@
             <!-- מחיר ליחידה -->
             <p>מחיר ליחידה: ₪<%= item.price %></p>
 
-            <!-- שדה כמות שמתעדכן אוטומטית (ללא כפתור) -->
+            <!-- שדה כמות -->
             <label>כמות:</label>
             <input
               type="number"
@@ -34,10 +34,10 @@
               min="1"
             />
 
-            <!-- סה"כ לשורה -->
+            <!-- סה"כ שורה -->
             <p class="line-total">סה"כ: ₪<%= item.total %></p>
 
-            <!-- כפתור הסרה -->
+            <!-- כפתור הסרה מהעגלה -->
             <form action="/cart/remove" method="POST" class="remove-form">
               <input type="hidden" name="pid" value="<%= item.pid %>" />
               <button type="submit" class="remove-button">🗑️ הסר</button>
@@ -47,12 +47,23 @@
       <% }) %>
     </div>
 
-    <!-- סה"כ לעגלה -->
+    <!-- סה"כ כולל לעגלה -->
     <h3 class="cart-total">סה"כ לתשלום: ₪<%= totalAmount %></h3>
+
+    <!-- ✅ כפתור המשך לתשלום - יוצר הזמנה חדשה -->
+    <!-- שימו לב: הנתיב הוא /order כי כך הוא מחובר ב-app.js -->
+    <form action="/order" method="POST" class="checkout-form">
+      <!-- שליחת העגלה כמחרוזת JSON -->
+      <input type="hidden" name="cart" value='<%= JSON.stringify(cart) %>' />
+      <!-- שליחת הסכום הכולל -->
+      <input type="hidden" name="totalPrice" value="<%= totalAmount %>" />
+      <!-- כפתור "המשך לתשלום" -->
+      <button type="submit" class="btn-checkout">המשך לתשלום</button>
+    </form>
   <% } %>
 </section>
 
-<!-- סקריפט לעדכון אוטומטי של הכמות ברגע שהמשתמש משנה את הערך -->
+<!-- סקריפט לעדכון הכמות בעגלה באופן אוטומטי -->
 <script>
   document.querySelectorAll(".quantity-input").forEach((input) => {
     input.addEventListener("change", function () {
@@ -69,7 +80,7 @@
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            location.reload();
+            location.reload(); // רענון עמוד אם העדכון הצליח
           } else {
             alert("אירעה שגיאה בעדכון הכמות");
           }
@@ -79,3 +90,4 @@
 </script>
 
 <%- include('../partials/footer') %>
+

@@ -1,0 +1,45 @@
+<%- include('../partials/header') %> <!-- כותרת עליונה -->
+<%- include('../partials/navbar') %> <!-- תפריט ניווט -->
+
+<h1>מעבר לתשלום</h1>
+
+<% if (cart && cart.length > 0) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>שם מוצר</th>
+        <th>כמות</th>
+        <th>מחיר ליחידה</th>
+        <th>סה״כ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cart.forEach(item => { %>
+        <tr>
+          <td><%= item.pname %></td> <!-- שם המוצר -->
+          <td><%= item.qty %></td> <!-- כמות -->
+          <td>₪<%= item.price %></td> <!-- מחיר ליחידה -->
+          <td>₪<%= item.total %></td> <!-- סך הכל למוצר -->
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <h3>סה״כ לתשלום: ₪<%= totalAmount %></h3>
+
+  <!-- ✅ טופס שליחת ההזמנה -->
+  <form action="/orders" method="POST">
+    <!-- ✅ שליחת העגלה כמחרוזת JSON מוצפנת למניעת תקלות -->
+    <input type="hidden" name="cart" value="<%= encodeURIComponent(JSON.stringify(cart)) %>" />
+
+    <!-- ✅ שליחת הסכום הכולל -->
+    <input type="hidden" name="totalPrice" value="<%= totalAmount %>" />
+
+    <button type="submit">בצע הזמנה</button>
+  </form>
+
+<% } else { %>
+  <p>העגלה שלך ריקה.</p>
+<% } %>
+
+<%- include('../partials/footer') %> <!-- כותרת תחתונה -->

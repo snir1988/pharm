@@ -1,28 +1,40 @@
-const jwt = require("jsonwebtoken"); // ייבוא ספריית JWT
+const jwt = require("jsonwebtoken"); // ייבוא JWT
 
-// מידלוור לאימות משתמשים בעזרת JWT
+// ✅ מידלוור לאימות גישה – בודק גם בכותרת (Header) וגם ב-Cookie
 const authMiddleware = (req, res, next) => {
-  const authHeader = req.header("Authorization"); // נשלף את ההדר מהבקשה
+  // נסה לשלוף טוקן מה-cookie
+  const cookieToken = req.cookies?.token;
 
-  if (!authHeader) {
-    return res
-      .status(401)
-      .json({ message: "Access Denied. No token provided." }); // ללא טוקן
+  // נסה לשלוף טוקן מה-header בצורה תקינה: "Authorization: Bearer <token>"
+  const authHeader = req.header("Authorization");
+  let headerToken = null;
+
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    headerToken = authHeader.split(" ")[1];
   }
 
-  // לפעמים הטוקן מגיע עם Bearer: "Bearer <token>"
-  const token = authHeader.startsWith("Bearer ")
-    ? authHeader.split(" ")[1]
-    : authHeader;
+  // קביעת הטוקן לשימוש: נעדיף את זה מה-header אם קיים ותקין, אחרת ניקח מה-cookie
+  const token = headerToken || cookieToken;
+
+  // אם לא נמצא טוקן – גישה אסורה
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Access Denied. No token provided." });
+  }
 
   try {
-    // אימות הטוקן מול המפתח הסודי
+    // ✅ אימות הטוקן לפי המפתח הסודי (JWT_SECRET)
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = verified; // שמירת פרטי המשתמש ב-request להמשך הבקשה
-    next(); // ממשיכים למידלוור/ראוטר הבא
+
+    // ✅ שמירת פרטי המשתמש (שנמצאים בטוקן) בתוך הבקשה – לשימוש בהמשך
+    req.user = verified;
+
+    next(); // ממשיכים לנתיב הבא
   } catch (err) {
-    return res.status(400).json({ message: "Invalid Token" }); // טוקן לא תקין
+    // אם הטוקן לא תקין או פג תוקף
+    return res.status(401).json({ message: "Invalid token." });
   }
 };
 
-module.exports = authMiddleware; // ייצוא לשימוש בקובצי ראוטים
+module.exports = authMiddleware; // ייצוא המידלוור לשימוש בקבצי נתיבים

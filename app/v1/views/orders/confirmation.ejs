@@ -1,0 +1,17 @@
+<!-- views/orders/confirmation.ejs -->
+<%- include('../partials/header') %> <!-- ייבוא של חלק עליון -->
+<%- include('../partials/navbar') %> <!-- ייבוא של תפריט ניווט -->
+
+<div class="confirmation-container">
+  <h1>תשלום הושלם בהצלחה!</h1> <!-- כותרת עיקרית -->
+
+  <!-- הצגת שם בעל הכרטיס כהוקרה/סיכום -->
+  <p>תודה לך <strong><%= cardName %></strong> על ביצוע התשלום.</p>
+
+  <p>ההזמנה שלך התקבלה ותטופל בהקדם.</p>
+
+  <!-- כפתור חזרה לדף הבית או חנות -->
+  <a href="/" class="btn">חזרה לחנות</a>
+</div>
+
+<%- include('../partials/footer') %> <!-- ייבוא של חלק תחתון -->
