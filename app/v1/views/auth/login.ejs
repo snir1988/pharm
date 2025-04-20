@@ -1,0 +1,49 @@
+<%- include('../partials/header') %> <!-- ✅ כולל את הקובץ header (מבנה HTML בסיסי, תגיות <head>, קישורי CSS וכו') -->
+
+  <%- include('../partials/navbar') %> <!-- ✅ כולל את תפריט הניווט העליון של האתר (למשל: בית, מוצרים, עגלה וכו') -->
+  
+  <!-- ✅ קישורי CSS לעיצוב הדף -->
+  <link rel="stylesheet" href="/styles/global.css"> <!-- עיצוב כללי: צבעים, טיפוגרפיה, מבנה -->
+  <link rel="stylesheet" href="/styles/login.css"> <!-- עיצוב של טפסים: התחברות, רישום ואיפוס סיסמה -->
+  
+  <!-- 🧱 תחילת גוף הדף - אזור טופס ההתחברות -->
+  <section class="login-section"> <!-- עוטף את כל הדף לצורכי עיצוב ומרכוז -->
+    <div class="login-box"> <!-- תיבת התחברות מעוצבת בלבן עם צל -->
+  
+      <h2>התחברות</h2> <!-- 🟦 כותרת עמוד ההתחברות -->
+  
+      <!-- ✅ אם msg קיים ואין error – מציג הודעת הצלחה (ירוקה) -->
+      <% if (typeof msg !== 'undefined' && msg && !error) { %>
+        <p class="login-message success"><%= msg %></p> <!-- הודעת הצלחה מהשרת -->
+      <% } %>
+  
+      <!-- ✅ אם msg קיים ויש error – מציג הודעת שגיאה (אדומה) -->
+      <% if (typeof msg !== 'undefined' && msg && error) { %>
+        <p class="login-message error"><%= msg %></p> <!-- הודעת שגיאה מהשרת -->
+      <% } %>
+  
+      <!-- 🔐 טופס התחברות - שולח את הנתונים לשרת -->
+      <form action="/login" method="POST"> <!-- טופס התחברות נשלח ב־POST לנתיב /login -->
+        <div class="form-group"> <!-- קבוצת שדה אימייל -->
+          <label for="email">דוא"ל</label> <!-- תווית לשדה -->
+          <input type="email" id="email" name="email" required> <!-- שדה הזנת אימייל -->
+        </div>
+        <div class="form-group"> <!-- קבוצת שדה סיסמה -->
+          <label for="password">סיסמה</label> <!-- תווית לשדה -->
+          <input type="password" id="password" name="password" required> <!-- שדה הזנת סיסמה -->
+        </div>
+        <button type="submit" class="login-btn">התחבר</button> <!-- כפתור שליחת הטופס -->
+      </form>
+  
+      <!-- 🔗 קישור לשחזור סיסמה למשתמש ששכח -->
+      <p class="register-link">
+        <a href="/forgot-password">שכחתי סיסמה?</a> <!-- קישור לדף איפוס סיסמה -->
+      </p>
+  
+      <!-- 🆕 קישור לרישום משתמש חדש -->
+      <p class="register-link">אין לך חשבון? <a href="/register">הירשם כאן</a></p> <!-- מעבר לדף רישום -->
+    </div>
+  </section>
+  
+  <%- include('../partials/footer') %> <!-- ✅ כולל את הקובץ footer עם מידע תחתון (כמו זכויות יוצרים וכו') -->
+  

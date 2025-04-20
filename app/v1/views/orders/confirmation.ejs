@@ -1,0 +1,29 @@
+<%- include('../partials/header') %> <!-- ✅ כולל את קובץ ה־header (כולל title, קישורי CSS וכו') -->
+<%- include('../partials/navbar') %> <!-- ✅ כולל את תפריט הניווט העליון -->
+
+<!-- ✅ קישור לקובצי עיצוב רלוונטיים -->
+<link rel="stylesheet" href="/styles/global.css"> <!-- עיצוב כללי לאתר -->
+<link rel="stylesheet" href="/styles/payment.css"> <!-- עיצוב מותאם לעמודי תשלום -->
+
+<!-- ✅ עטיפת כל התוכן בקונטיינר מעוצב -->
+<section class="payment-container">
+  
+  <h1>✅ התשלום הושלם בהצלחה!</h1> <!-- ✅ כותרת בולטת המעידה על סיום תהליך התשלום -->
+  
+  <!-- ✅ פסקת תודה אישית עם שם בעל הכרטיס -->
+  <p style="text-align:center; font-size:1.2rem; color:#4caf50;">
+    תודה, <%= cardName %>! הזמנתך התקבלה ומטופלת כעת.
+  </p>
+
+  <!-- ✅ קישור לעמוד 'ההזמנות שלי' לצפייה בהיסטוריית הזמנות -->
+  <p style="text-align:center; margin-top:20px;">
+    תוכל לצפות בהזמנות שלך בכל עת דרך <a href="/order/my-orders">ההזמנות שלי</a>.
+  </p>
+
+  <!-- ✅ כפתור להמשך קניות -->
+  <div style="text-align:center; margin-top: 30px;">
+    <a href="/product" class="btn-pay">למוצרים נוספים</a> <!-- עיצוב כפתור דרך CSS -->
+  </div>
+</section>
+
+<%- include('../partials/footer') %> <!-- ✅ כולל את ה־footer הכללי -->

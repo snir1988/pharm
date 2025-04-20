@@ -1,0 +1,222 @@
+/* ✅ עיצוב כללי של גוף האתר */
+body {
+  background-color: #f5f5f5; /* רקע כללי בצבע אפור בהיר */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* גופן מודרני וקריא */
+  color: #222; /* צבע טקסט עיקרי - אפור כהה */
+  margin: 0; /* הסרת מרווח חיצוני ברירת מחדל */
+  padding: 0; /* הסרת ריווח פנימי ברירת מחדל */
+}
+
+/* ✅ איפוס רווחים בין כותרות לפסקאות */
+h1, h2, h3, p {
+  margin: 0; /* ביטול מרווח חיצוני */
+  padding: 0; /* ביטול ריווח פנימי */
+}
+
+/* 🔝 תפריט ניווט עליון */
+.main-navbar {
+  background-color: #ffffff; /* רקע לבן לתפריט */
+  padding: 15px 30px; /* ריווח פנימי לתפריט */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* צל קל כדי לבלוט */
+  position: sticky; /* דבוק לראש העמוד בזמן גלילה */
+  top: 0; /* מקובע בחלק העליון */
+  z-index: 1000; /* מעל כל אלמנט אחר */
+}
+
+.nav-links {
+  list-style: none; /* הסרת נקודות מהרשימה */
+  display: flex; /* פריסה אופקית */
+  justify-content: center; /* יישור למרכז */
+  gap: 30px; /* רווח בין קישורים */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #0056b3; /* צבע כחול לטקסט של הקישור */
+  text-decoration: none; /* הסרת קו תחתון */
+  font-weight: bold; /* טקסט מודגש */
+  font-size: 1rem; /* גודל טקסט רגיל */
+  padding: 8px 16px; /* ריווח פנימי */
+  border-radius: 4px; /* פינות מעוגלות */
+  transition: background-color 0.3s ease, color 0.3s ease; /* מעבר חלק */
+}
+
+.nav-links li a:hover {
+  background-color: #f0f0f0; /* רקע אפור בלחיצה */
+  color: #003d80; /* צבע טקסט כהה יותר ב-hover */
+}
+
+/* 🎯 עיצוב מותאם למסכים קטנים (רספונסיביות) */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-wrap: wrap; /* מעבר לשורות נוספות */
+    justify-content: center; /* עדיין מיושר למרכז */
+    gap: 15px; /* ריווח קטן יותר בין פריטים */
+  }
+
+  .nav-links li a {
+    font-size: 0.95rem; /* הקטנת גודל טקסט */
+    padding: 6px 10px; /* ריווח מותאם */
+  }
+}
+
+/* ✅ עיצוב עמוד הצלחה לאחר הרשמה */
+.register-success {
+  display: flex; /* פריסה כקופסה */
+  justify-content: center; /* מרכז אופקי */
+  align-items: center; /* מרכז אנכי */
+  min-height: 80vh; /* גובה מינימלי של רוב העמוד */
+  padding: 40px 20px;
+}
+
+.success-box {
+  background-color: #e6ffed; /* רקע ירקרק נעים */
+  border: 1px solid #a4d4ae; /* גבול ירוק בהיר */
+  padding: 30px; /* ריווח פנימי */
+  border-radius: 8px; /* פינות מעוגלות */
+  text-align: center; /* טקסט מיושר למרכז */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* צל עדין */
+}
+
+.success-box h2 {
+  color: #2d8700; /* ירוק כהה לטקסט */
+  margin-bottom: 15px;
+}
+
+/* 🔗 אייקונים בתפריט */
+.nav-links li a i {
+  margin-left: 6px; /* רווח בין האייקון לטקסט */
+}
+
+/* 🔻 עיצוב תחתית הדף (פוטר) */
+.site-footer {
+  background-color: #f8f8f8; /* רקע אפור בהיר */
+  color: #444; /* צבע טקסט אפור כהה */
+  text-align: center; /* טקסט מיושר למרכז */
+  padding: 20px;
+  font-size: 0.9rem;
+  margin-top: 40px; /* מרווח עליון */
+  border-top: 1px solid #ddd; /* קו עליון */
+}
+
+.footer-content p {
+  margin: 5px 0; /* ריווח בין שורות */
+}
+
+/* === עיצוב עמוד אישור תשלום === */
+.confirmation-container {
+  max-width: 600px; /* רוחב מקסימלי */
+  margin: 50px auto; /* מרווח מהחלק העליון + מרכז אופקי */
+  padding: 30px;
+  background-color: #eafbee; /* רקע ירוק בהיר */
+  border-radius: 10px; /* פינות מעוגלות */
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* צל עדין */
+}
+
+.confirmation-container h1 {
+  color: #2e7d32; /* צבע ירוק */
+}
+
+.confirmation-container p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.confirmation-container .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #2e7d32; /* ירוק */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.confirmation-container .btn:hover {
+  background-color: #1b5e20; /* ירוק כהה יותר ב-hover */
+}
+
+/* 🧾 כפתור ירוק לתשלום */
+.btn-pay {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #2e7d32; /* ירוק */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-pay:hover {
+  background-color: #1b5e20;
+}
+
+/* 🛍️ כפתור תשלום מהעגלת קניות */
+.btn-checkout {
+  background-color: #2e7d32; /* ירוק */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-checkout:hover {
+  background-color: #1b5e20;
+}
+
+/* 📦 עיצוב רשימת הזמנות */
+.orders-list {
+  display: flex;
+  flex-direction: column; /* פריסה אנכית */
+  gap: 20px; /* רווח בין הזמנות */
+}
+
+.order-card {
+  border: 1px solid #ccc; /* גבול אפור */
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #f9f9f9; /* רקע אפור בהיר מאוד */
+}
+
+/* 🟠 באנר VIP קטן */
+.vip-banner {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto 20px; /* ריווח עליון ותחתון */
+}
+
+.vip-banner img {
+  width: 650px;
+  height: auto;
+  border-radius: 16px; /* פינות מעוגלות לתמונה */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1); /* צל סביב התמונה */
+}
+
+.vip-banner h2 {
+  font-size: 1.6rem;
+  color: #e65100; /* כתום חזק */
+  margin-bottom: 15px;
+}
+
+.vip-join-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #fb8c00; /* כתום בינוני */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.vip-join-btn:hover {
+  background-color: #ef6c00; /* כתום כהה יותר ב-hover */
+}

@@ -1,0 +1,61 @@
+<%- include('../partials/header') %> <!-- כולל את ה־header של הדף (meta, title, קבצי CSS וכו') -->
+<%- include('../partials/navbar') %> <!-- כולל את תפריט הניווט הראשי -->
+
+<!-- ✅ קישורים לקבצי עיצוב CSS כלליים -->
+<link rel="stylesheet" href="/styles/global.css" /> <!-- עיצוב כללי לכל האתר -->
+<link rel="stylesheet" href="/styles/products.css" /> <!-- עיצוב של עמוד המוצרים -->
+<link rel="stylesheet" href="/styles/vip.css"> <!-- עיצוב לבאנר VIP -->
+
+<!-- 🆕 באנר טקסט עם כפתור הצטרפות למועדון VIP -->
+<section class="vip-text-banner"> <!-- באנר טקסטי מעוצב עם הנחה למועדון VIP -->
+  <h2>הצטרפו עכשיו למועדון ה־VIP שלנו!</h2> <!-- כותרת באנר -->
+  <p>10% הנחה קבועה + 50% ביום הולדת 🎁</p> <!-- תיאור ההטבות -->
+  <a href="/vip" class="vip-cta-btn">להצטרפות</a> <!-- כפתור שמעביר לדף VIP -->
+</section>
+
+<!-- ✅ טופס סינון מוצרים לפי קטגוריה ומיון לפי מחיר -->
+<form method="GET" action="/product" class="product-filters"> <!-- טופס GET לסינון מוצרים -->
+  <label for="category">קטגוריה:</label> <!-- תווית לבחירת קטגוריה -->
+  <select name="category" id="category">
+    <option value="">הכול</option> <!-- אפשרות לסינון כלל הקטגוריות -->
+    <% categories.forEach(cat => { %> <!-- מעבר על הקטגוריות מתוך המסד -->
+      <option value="<%= cat.cid %>" <%= selectedCategory == cat.cid ? 'selected' : '' %>>
+        <%= cat.pname %> <!-- הצגת שם הקטגוריה -->
+      </option>
+    <% }) %>
+  </select>
+
+  <label for="sort">מיין לפי:</label> <!-- תווית למיון -->
+  <select name="sort" id="sort">
+    <option value="">ללא מיון</option>
+    <option value="price_asc" <%= sort == 'price_asc' ? 'selected' : '' %>>מחיר: מהנמוך לגבוה</option>
+    <option value="price_desc" <%= sort == 'price_desc' ? 'selected' : '' %>>מחיר: מהגבוה לנמוך</option>
+  </select>
+
+  <button type="submit">הצג</button> <!-- כפתור שליחת הסינון -->
+</form>
+
+<!-- ✅ תצוגת המוצרים -->
+<% if (products.length === 0) { %> <!-- אם אין מוצרים להצגה -->
+  <p class="no-products">אין מוצרים להצגה כרגע.</p>
+<% } else { %>
+  <div class="product-grid"> <!-- גריד של כרטיסי מוצרים -->
+    <% products.forEach(product => { %> <!-- מעבר על כל מוצר -->
+      <div class="product-card"> <!-- כרטיס של מוצר אחד -->
+        <% if (product.picname) { %> <!-- בדיקה אם קיימת תמונה -->
+          <img src="/images/<%= product.picname %>" alt="<%= product.pname %>" /> <!-- הצגת תמונה -->
+        <% } %>
+        <h3><%= product.pname %></h3> <!-- שם המוצר -->
+        <p class="price">₪<%= product.price %></p> <!-- מחיר המוצר -->
+
+        <!-- ✅ כפתור להוספה לעגלה -->
+        <form action="/cart/add" method="POST">
+          <input type="hidden" name="pid" value="<%= product.pid %>" /> <!-- מזהה מוצר מוסתר -->
+          <button type="submit" class="add-to-cart-btn">הוסף לעגלה</button> <!-- כפתור הוספה -->
+        </form>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %> <!-- כולל את ה־footer של הדף -->

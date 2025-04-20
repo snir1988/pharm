@@ -1,0 +1,56 @@
+<nav class="main-navbar"> <!-- 🔷 עטיפת תפריט הניווט הראשי -->
+  <ul class="nav-links"> <!-- 🔹 רשימת הקישורים שבתפריט -->
+
+    <!-- ✅ קישור לדף הבית -->
+    <li>
+      <a href="/"> <!-- בעת לחיצה – מעבר לדף הבית -->
+        <i class="fas fa-home"></i> דף הבית <!-- אייקון של בית + טקסט -->
+      </a>
+    </li>
+
+    <!-- ✅ קישור לעמוד המוצרים -->
+    <li>
+      <a href="/product"> <!-- מעבר לדף עם כל המוצרים -->
+        <i class="fas fa-pills"></i> מוצרים <!-- אייקון של גלולה + טקסט -->
+      </a>
+    </li>
+
+    <!-- ✅ עגלת קניות עם אייקון ומספר פריטים -->
+    <li>
+      <a href="/cart"> <!-- מעבר לעמוד העגלה -->
+        <i class="fas fa-shopping-cart"></i> עגלה
+        <% if (session.cart && session.cart.length > 0) { %> 
+          (<%= session.cart.length %>) <!-- מציג מספר מוצרים בעגלה אם יש -->
+        <% } %>
+      </a>
+    </li>
+
+    <!-- ✅ אם המשתמש לא מחובר – מציג אפשרות להתחברות או הרשמה -->
+    <% if (!user) { %>
+      <li>
+        <a href="/login">
+          <i class="fas fa-sign-in-alt"></i> התחברות
+        </a>
+      </li>
+      <li>
+        <a href="/register">
+          <i class="fas fa-user-plus"></i> הרשמה
+        </a>
+      </li>
+
+    <!-- ✅ אם המשתמש מחובר – מציג את ההזמנות שלי + כפתור התנתקות -->
+    <% } else { %>
+      <li>
+        <a href="/order/my-orders">
+          <i class="fas fa-box"></i> ההזמנות שלי <!-- אייקון של חבילה -->
+        </a>
+      </li>
+      <li>
+        <a href="/logout">
+          <i class="fas fa-sign-out-alt"></i> התנתקות <!-- אייקון של יציאה -->
+        </a>
+      </li>
+    <% } %>
+
+  </ul>
+</nav>

@@ -1,0 +1,139 @@
+/* ✅ עיצוב עמוד מוצרים – מודרני ורענן */
+.product-page {
+  background-color: #f5f7fa; /* רקע כללי עדין ואחיד לעמוד */
+  padding: 40px 30px; /* ריווח פנימי לעמוד */
+  min-height: 100vh; /* גובה מינימלי של כל העמוד בגובה מסך */
+}
+
+.page-title {
+  text-align: center; /* כותרת מיושרת למרכז */
+  font-size: 2.5rem; /* גודל גדול לכותרת */
+  color: #1a237e; /* צבע כחול כהה */
+  margin-bottom: 30px; /* ריווח מתחת לכותרת */
+}
+
+/* 🎯 עיצוב טופס סינון מוצרים (קטגוריה + מיון) */
+.product-filters {
+  display: flex; /* הצגת השדות בשורה */
+  justify-content: center; /* יישור למרכז */
+  align-items: center; /* יישור אנכי */
+  gap: 20px; /* רווח בין פריטי הטופס */
+  flex-wrap: wrap; /* מעבר לשורה שנייה במסכים צרים */
+  margin-bottom: 40px; /* ריווח מתחת לטופס */
+}
+
+.product-filters label {
+  font-weight: bold; /* הדגשת התוויות */
+  margin-left: 5px; /* ריווח קטן */
+}
+
+.product-filters select,
+.product-filters button {
+  padding: 10px 15px; /* ריווח פנימי */
+  font-size: 1rem; /* גודל טקסט אחיד */
+  border-radius: 6px; /* פינות מעוגלות */
+  border: 1px solid #ccc; /* מסגרת אפורה בהירה */
+}
+
+.product-filters button {
+  background-color: #1a237e; /* רקע כחול כהה */
+  color: white; /* טקסט לבן */
+  border: none; /* ללא מסגרת */
+  cursor: pointer; /* סמן יד */
+  transition: background-color 0.3s ease; /* מעבר חלק */
+}
+
+.product-filters button:hover {
+  background-color: #0d144a; /* גוון כהה יותר של כחול בלחיצה */
+}
+
+/* 📦 גריד של כרטיסי מוצרים */
+.product-grid {
+  display: grid; /* הצגה בגריד */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* מספר עמודות לפי רוחב */
+  gap: 30px; /* רווח בין המוצרים */
+}
+
+/* 💳 עיצוב כרטיס מוצר */
+.product-card {
+  background-color: white; /* רקע לבן לכרטיס */
+  border-radius: 10px; /* פינות מעוגלות */
+  padding: 20px; /* ריווח פנימי */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08); /* צל עדין */
+  text-align: center; /* טקסט מיושר למרכז */
+  position: relative; /* מאפשר מיקום תגיות על הכרטיס */
+  transition: transform 0.2s ease; /* אפקט מעבר */
+}
+
+.product-card:hover {
+  transform: translateY(-6px); /* התרוממות הכרטיס כשעוברים עם העכבר */
+}
+
+.product-card img {
+  max-width: 100%; /* לא לעבור את גבולות הכרטיס */
+  height: 160px; /* גובה קבוע */
+  object-fit: contain; /* התאמה לתוך המסגרת */
+  margin-bottom: 15px; /* רווח מתחת לתמונה */
+}
+
+.product-card h3 {
+  font-size: 1.1rem; /* גודל כותרת */
+  margin-bottom: 8px;
+  color: #222; /* צבע טקסט כהה */
+}
+
+/* 💲 עיצוב מחיר */
+.price {
+  color: #2e7d32; /* ירוק כהה - מסמל חיובי */
+  font-weight: bold; /* מודגש */
+  margin-bottom: 10px;
+}
+
+/* 🛒 כפתור הוספה לעגלה */
+.add-to-cart-btn {
+  background-color: #fb8c00; /* כתום עדין */
+  color: white; /* טקסט לבן */
+  border: none; /* ללא מסגרת */
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  border-radius: 6px; /* פינות מעוגלות */
+  cursor: pointer; /* סמן יד */
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #ef6c00; /* צבע כהה יותר ב-hover */
+}
+
+/* 🏷️ תגית מבצע / חדש */
+.product-badge {
+  position: absolute; /* מיקום עצמאי */
+  top: 10px; /* ריחוק מהחלק העליון */
+  left: 10px; /* ריחוק מהצד */
+  background-color: #e53935; /* רקע אדום (למשל מבצע) */
+  color: white;
+  padding: 4px 10px; /* ריווח פנימי קטן */
+  font-size: 0.8rem; /* גודל טקסט קטן */
+  border-radius: 12px; /* תגית מעוגלת */
+  font-weight: bold;
+}
+
+/* 📨 הודעה כשאין מוצרים להצגה */
+.no-products {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777; /* אפור בינוני */
+  margin-top: 60px;
+}
+
+/* ✅ הגדרה כללית נוספת לעמוד מוצרים */
+.product-page {
+  background-color: #f5f7fa; /* אותו רקע בהיר */
+  padding: 40px 30px;
+  min-height: 100vh;
+}
+
+/* ⬇️ מרווח מתחת לבאנר VIP אם קיים */
+.product-page .vip-banner-hero {
+  margin-bottom: 40px; /* מרווח מתחת לבאנר */
+}

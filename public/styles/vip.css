@@ -1,0 +1,188 @@
+/* ✨ באנר VIP נוצץ ומעוצב */
+.vip-text-banner {
+  background: linear-gradient(135deg, #3e3e3e, #1f1f1f); /* רקע מעבר כהה אלגנטי */
+  color: #fff; /* טקסט בצבע לבן */
+  text-align: center; /* טקסט ממורכז */
+  padding: 50px 25px; /* ריווח פנימי */
+  border-radius: 20px; /* פינות מעוגלות */
+  max-width: 1000px; /* רוחב מקסימלי */
+  margin: 40px auto; /* ריווח חיצוני ומרכז */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* צל עמוק */
+  position: relative;
+  overflow: hidden; /* מסתיר כל תוכן שיצא מהמסגרת */
+  direction: rtl; /* תמיכה בטקסט ימין לשמאל */
+}
+
+/* 🟨 אפקט רקע פנימי נוצץ */
+.vip-text-banner::before {
+  content: "✨"; /* מוסיף אייקון */
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  font-size: 60px;
+  opacity: 0.2; /* שקיפות */
+  animation: sparkle 5s infinite linear; /* אנימציית סיבוב */
+}
+
+.vip-text-banner::after {
+  content: "✨"; /* אייקון נוסף בפינה השנייה */
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  font-size: 60px;
+  opacity: 0.2;
+  animation: sparkle 4s infinite linear;
+}
+
+/* ✨ אנימציה שמסובבת את האייקונים */
+@keyframes sparkle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 🖋️ כותרת הבאנר */
+.vip-text-banner h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 📝 תיאור מתחת לכותרת */
+.vip-text-banner p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #ffd700; /* זהב */
+}
+
+/* 🔘 כפתור קריאה לפעולה */
+.vip-cta-btn {
+  background: linear-gradient(to right, #fb8c00, #ffa726); /* מעבר צבע כתום */
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 🖱️ אפקט על כפתור - הובר */
+.vip-cta-btn:hover {
+  transform: translateY(-3px); /* הרמה קטנה */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(to right, #ffa726, #fb8c00); /* היפוך צבעים */
+}
+
+/* 📝 קופסת טופס הצטרפות ל־VIP */
+.vip-form-section {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px 30px;
+  max-width: 600px;
+  margin: 60px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+  text-align: center;
+}
+
+/* 🟦 כותרת טופס */
+.vip-form-section h1 {
+  font-size: 2rem;
+  color: #1976d2; /* כחול */
+  margin-bottom: 10px;
+}
+
+/* 💬 טקסט הסבר בטופס */
+.vip-form-section p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* 🧾 שדות קלט */
+.vip-form-section input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* 🧡 כפתור שליחת טופס */
+.vip-form-section button {
+  background-color: #fb8c00;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.vip-form-section button:hover {
+  background-color: #ef6c00;
+}
+
+/* 💌 טקסט מידע מתחת לטופס */
+.vip-note {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 20px;
+}
+
+/* ✨ עיצוב עמוד הצלחה לאחר הצטרפות */
+.vip-success-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  background: linear-gradient(135deg, #1e1e1e, #2c2c2c); /* רקע כהה יוקרתי */
+  color: #fff;
+  padding: 40px 20px;
+  direction: rtl;
+}
+
+/* קופסת הודעת הצלחה */
+.vip-box {
+  background-color: rgba(255, 255, 255, 0.05); /* רקע שקוף למחצה */
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+}
+
+/* כותרת הצלחה */
+.vip-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ffd700; /* זהב */
+}
+
+/* תיאור הצלחה */
+.vip-desc {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* 🔘 כפתור חזרה למוצרים */
+.vip-btn {
+  background: linear-gradient(to right, #fb8c00, #ffa726);
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* אפקט הובר לכפתור */
+.vip-btn:hover {
+  background: linear-gradient(to right, #ffa726, #fb8c00);
+  transform: translateY(-3px);
+}

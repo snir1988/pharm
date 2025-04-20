@@ -1,0 +1,45 @@
+<%- include('../partials/header') %> <!-- ✅ כולל את קובץ ה־Header (תגיות <html>, <head>, קישורי CSS גלובליים וכו') -->
+
+  <%- include('../partials/navbar') %> <!-- ✅ כולל את תפריט הניווט העליון של האתר -->
+  
+  <link rel="stylesheet" href="/styles/global.css"> <!-- ✅ קישור לקובץ CSS כללי המשפיע על כל האתר -->
+  <link rel="stylesheet" href="/styles/register.css"> <!-- ✅ קובץ עיצוב ייעודי לעמוד ההרשמה -->
+  
+  <section class="register-section"> <!-- ✅ עוטף את כל תוכן עמוד ההרשמה -->
+    <div class="register-box"> <!-- ✅ קופסה ממורכזת עם טופס ההרשמה -->
+      <h2>הרשמה</h2> <!-- ✅ כותרת העמוד -->
+  
+      <!-- ✅ טופס שליחת פרטי המשתמש לשרת -->
+      <form action="/register" method="POST">
+        
+        <div class="form-group"> <!-- 🧱 שדה שם מלא -->
+          <label for="name">שם מלא</label> <!-- ✅ תווית בעברית -->
+          <input type="text" id="name" name="name" required> <!-- ✅ שדה טקסט עם מזהה name (זהה לשם המשתנה ב־controller) -->
+        </div>
+  
+        <div class="form-group"> <!-- 🧱 שדה אימייל -->
+          <label for="email">דוא"ל</label>
+          <input type="email" id="email" name="email" required> <!-- ✅ HTML יאמת שהוזן אימייל תקין -->
+        </div>
+  
+        <div class="form-group"> <!-- 🧱 שדה סיסמה -->
+          <label for="password">סיסמה</label>
+          <input type="password" id="password" name="password" required> <!-- ✅ סיסמה מוסתרת -->
+        </div>
+  
+        <div class="form-group"> <!-- 🧱 שדה אישור סיסמה -->
+          <label for="confirmPassword">אישור סיסמה</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required> <!-- ✅ שדה נוסף לאימות -->
+        </div>
+  
+        <!-- ✅ כפתור שליחה -->
+        <button type="submit" class="register-btn">צור חשבון</button>
+      </form>
+  
+      <!-- 🔗 קישור למי שכבר רשום -->
+      <p class="login-link">כבר יש לך חשבון? <a href="/login">התחבר כאן</a></p>
+    </div>
+  </section>
+  
+  <%- include('../partials/footer') %> <!-- ✅ כולל את ה־Footer של האתר -->
+  

@@ -1,0 +1,32 @@
+<%- include('./partials/header') %> <!-- 🧩 כולל את הקובץ header - הכותרת העליונה שמכילה את <head> וכל קבצי העיצוב הכלליים -->
+
+  <link rel="stylesheet" href="/styles/vip.css" /> <!-- 🎨 קישור לקובץ CSS ספציפי לעיצוב עמוד VIP -->
+  
+  <!-- 💎 באנר שיווקי בראש העמוד עם קריאה להצטרפות למועדון VIP -->
+  <section class="vip-text-banner"> <!-- אזור באנר פתיחה צבעוני ומזמין -->
+    <h2>הצטרפו עכשיו למועדון ה־VIP שלנו!</h2> <!-- 📝 כותרת מושכת את העין -->
+    <p>קבלו 10% הנחה קבועה ועוד 50% ביום הולדת 🎁</p> <!-- ✨ טקסט תמציתי שמסביר את ההטבה -->
+    <a href="#vip-form-section" class="vip-cta-btn">להצטרפות</a> <!-- 🔗 כפתור קפיצה למטה לטופס עצמו -->
+  </section>
+  
+  <!-- 📝 טופס רישום להצטרפות למועדון VIP -->
+  <section class="vip-form-section" id="vip-form-section"> <!-- ✉️ אזור עם מזהה שמאפשר קפיצה אליו מהכפתור -->
+    <h1>הצטרפות למועדון VIP</h1> <!-- 🟦 כותרת מרכזית של הטופס -->
+    <p>הצטרפו וקבלו הנחות בלעדיות, מבצעים מיוחדים, והפתעות 🎁</p> <!-- 💬 טקסט שיווקי נוסף שמחזק את ההצעה -->
+  
+    <!-- 📬 טופס לשליחת פרטי לקוח -->
+    <form action="/vip" method="POST"> <!-- טופס שנשלח לשרת במסלול POST /vip -->
+      <input type="text" name="fullname" placeholder="שם מלא" required /> <!-- 👤 שדה שם מלא -->
+      <input type="email" name="email" placeholder="אימייל" required /> <!-- ✉️ כתובת דוא"ל -->
+      <input type="date" name="birthdate" placeholder="תאריך לידה" required /> <!-- 🎂 תאריך לידה -->
+      <input type="text" name="city" placeholder="עיר מגורים" required /> <!-- 🏙️ עיר מגורים -->
+      <input type="tel" name="phone" placeholder="טלפון" required /> <!-- ☎️ טלפון ליצירת קשר -->
+      <button type="submit">הצטרפו עכשיו</button> <!-- 🔘 כפתור שליחה להצטרפות -->
+    </form>
+  
+    <!-- ✅ טקסט הבהרה לגבי פרטיות -->
+    <p class="vip-note">אנחנו שונאים ספאם בדיוק כמוך. תוכל להסיר את עצמך בכל עת 💌</p> <!-- הבטחה למשתמש לא לשלוח ספאם -->
+  </section>
+  
+  <%- include('./partials/footer') %> <!-- 🧩 כולל את הפוטר של האתר: כתובת, יצירת קשר וכו' -->
+  

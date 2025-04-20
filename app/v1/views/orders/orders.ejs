@@ -1,0 +1,39 @@
+<%- include('../partials/header') %> <!-- ✅ כולל את קובץ header – מוסיף תגיות <head> ודברים קבועים -->
+  <%- include('../partials/navbar') %> <!-- ✅ כולל את ה־navbar – תפריט ניווט קבוע בראש העמוד -->
+  
+  <h1>All Orders</h1> <!-- ✅ כותרת עמוד (למשתמשים עם הרשאת מנהל/דשבורד אולי) -->
+  
+  <!-- ✅ אם אין בכלל הזמנות – מציג הודעה מתאימה -->
+  <% if (orders.length === 0) { %>
+    <p>No orders found.</p> <!-- 🛑 הודעה פשוטה כאשר אין אף הזמנה במסד -->
+  <% } else { %>
+    <ul> <!-- ✅ רשימה של כל ההזמנות -->
+      <% orders.forEach(order => { %> <!-- 🔁 מעבר על כל ההזמנות שהתקבלו מהשרת -->
+        <li style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;"> <!-- ✅ קופסה לכל הזמנה -->
+          
+          <!-- 🆔 הצגת מזהה ההזמנה -->
+          <strong>Order ID:</strong> <%= order._id %><br>
+  
+          <!-- 💰 סה"כ מחיר של ההזמנה -->
+          <strong>Total Price:</strong> $<%= order.totalPrice %><br>
+  
+          <!-- 📅 תאריך ההזמנה -->
+          <strong>Date:</strong> <%= new Date(order.orderDate).toLocaleDateString() %><br>
+  
+          <!-- 🔁 סטטוס ההזמנה (שולם / ממתין) -->
+          <strong>Status:</strong> <%= order.status || 'pending' %><br>
+  
+          <!-- 🛒 רשימת מוצרים בהזמנה -->
+          <strong>Products:</strong>
+          <ul>
+            <% order.products.forEach(item => { %> <!-- 🔁 מעבר על כל מוצר בהזמנה -->
+              <li>
+                Product ID: <%= item.productId %> - Quantity: <%= item.quantity %> <!-- הצגת מזהה וכמות -->
+              </li>
+            <% }) %>
+          </ul>
+  
+          <!-- 💳 כפתור תשלום – מופיע רק אם ההזמנה ממתינה -->
+          <% if (order.status === 'pending') { %>
+            <a href="/orders/payment/<%= order._id %>" class="btn-pay">לתשלום</_
+  

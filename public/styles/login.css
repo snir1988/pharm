@@ -1,0 +1,111 @@
+/* 🌤️ רקע כללי של כל הדף */
+body {
+  background-color: #f5f5f5; /* רקע אפור-בהיר */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* גופן קריא */
+  color: #222; /* צבע טקסט כללי */
+  margin: 0;
+  padding: 0;
+}
+
+/* 🧱 פריסת הדף - מרכז את הטופס אנכית ואופקית */
+.login-section {
+  display: flex;
+  justify-content: center; /* ממרכז אופקית */
+  align-items: center; /* ממרכז אנכית */
+  min-height: 80vh; /* גובה מינימלי */
+  padding: 40px 20px;
+}
+
+/* 📦 תיבת התחברות */
+.login-box {
+  background-color: white; /* רקע לבן */
+  padding: 30px; /* רווח פנימי */
+  border-radius: 8px; /* פינות מעוגלות */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* צל רך */
+  max-width: 400px; /* רוחב מקסימלי */
+  width: 100%; /* תופס את כל הרוחב הפנוי */
+}
+
+/* 🖋️ כותרת הטופס */
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* 🧾 קבוצות של שדות (Label + Input) */
+.form-group {
+  margin-bottom: 20px; /* רווח בין קבוצות */
+}
+
+.form-group label {
+  display: block; /* כל label בשורה נפרדת */
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc; /* מסגרת אפורה */
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* 🔘 כפתור התחברות */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: white; /* רקע לבן */
+  color: #333; /* טקסט אפור כהה */
+  border: 1px solid #ccc; /* מסגרת אפורה */
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #f0f0f0; /* רקע בהיר יותר בהצבעה */
+}
+
+/* 🔗 קישור לרישום מתחת לטופס */
+.register-link {
+  text-align: center;
+  margin-top: 15px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.register-link a {
+  color: #0056b3; /* כחול לקישור */
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline; /* קו תחתון במעבר עכבר */
+}
+
+/* 🟢 הודעות הצלחה או שגיאה */
+.login-message {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* 🟩 הודעת הצלחה */
+.login-message.success {
+  background-color: #e6ffed;
+  color: #2e7d32;
+  border: 1px solid #a4d4ae;
+}
+
+/* 🟥 הודעת שגיאה */
+.login-message.error {
+  background-color: #ffe6e6;
+  color: #d32f2f;
+  border: 1px solid #f5b5b5;
+}

@@ -1,0 +1,88 @@
+/* 🌤️ רקע כללי */
+body {
+  background-color: #f5f5f5; /* רקע אפור בהיר ונעים לעין */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* גופן קריא ונוח */
+  color: #222; /* צבע טקסט כהה */
+  margin: 0; /* ביטול שוליים חיצוניים של הדף */
+  padding: 0; /* ביטול רווחים פנימיים */
+}
+
+/* 📐 פריסת עמוד ההרשמה */
+.register-section {
+  display: flex; /* שימוש ב־Flexbox לפריסה גמישה */
+  justify-content: center; /* מרכז את הטופס אופקית */
+  align-items: center; /* מרכז את הטופס אנכית */
+  min-height: 85vh; /* גובה מינימלי - 85% מגובה הדפדפן */
+  padding: 40px 20px; /* ריווח פנימי מסביב */
+}
+
+/* 📦 עיצוב קופסת הטופס */
+.register-box {
+  background-color: white; /* רקע לבן לטופס */
+  padding: 30px; /* ריווח פנימי לקופסה */
+  border-radius: 8px; /* פינות מעוגלות */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* צל עדין */
+  max-width: 450px; /* רוחב מקסימלי */
+  width: 100%; /* התאמה מלאה לרוחב ההורה */
+}
+
+/* 🟦 כותרת הטופס */
+.register-box h2 {
+  text-align: center; /* מרכז את הכותרת */
+  margin-bottom: 25px; /* ריווח תחתון מתחת לכותרת */
+  color: #222; /* צבע טקסט כהה */
+}
+
+/* 📝 קבוצות שדה בטופס */
+.form-group {
+  margin-bottom: 20px; /* רווח בין שדות הטופס */
+}
+
+.form-group label {
+  display: block; /* כל תווית תוצג בשורה נפרדת */
+  margin-bottom: 6px; /* ריווח בין התווית לשדה */
+  font-weight: bold; /* טקסט מודגש */
+  color: #333; /* צבע טקסט כהה */
+}
+
+.form-group input {
+  width: 100%; /* שדה ימלא את כל רוחב הקופסה */
+  padding: 10px; /* ריווח פנימי */
+  border: 1px solid #ccc; /* גבול אפור בהיר */
+  border-radius: 4px; /* פינות מעוגלות */
+  font-size: 1rem; /* גודל טקסט תקני */
+}
+
+/* 🟩 עיצוב כפתור ההרשמה */
+.register-btn {
+  width: 100%; /* הכפתור ימלא את כל הרוחב */
+  padding: 12px; /* ריווח פנימי */
+  background-color: white; /* רקע לבן */
+  color: #333; /* טקסט כהה */
+  border: 1px solid #ccc; /* גבול אפור בהיר */
+  border-radius: 4px; /* פינות מעוגלות */
+  font-weight: bold; /* טקסט מודגש */
+  cursor: pointer; /* סמן יד */
+  transition: background-color 0.3s ease; /* אנימציית מעבר רקע */
+}
+
+.register-btn:hover {
+  background-color: #f0f0f0; /* צבע רקע בלחיצה/הובר */
+}
+
+/* 🔗 טקסט וקישור להתחברות */
+.login-link {
+  text-align: center; /* טקסט ממורכז */
+  margin-top: 15px; /* ריווח מלמעלה */
+  color: #555; /* צבע טקסט אפור בינוני */
+  font-size: 0.95rem; /* גודל טקסט קטן */
+}
+
+.login-link a {
+  color: #0056b3; /* כחול לקישורים */
+  text-decoration: none; /* ללא קו תחתון כברירת מחדל */
+}
+
+.login-link a:hover {
+  text-decoration: underline; /* קו תחתון בהובר */
+}
