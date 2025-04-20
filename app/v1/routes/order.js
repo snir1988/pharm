@@ -1,23 +1,23 @@
 const express = require("express");
 const router = express.Router();
 
-const authMiddleware = require("../middelewares/auth"); // ✔ תיקון שם התיקייה
+const authMiddleware = require("../middelewares/auth");
 const orderController = require("../controllers/order");
 const cartController = require("../controllers/cart");
 
-// יצירת הזמנה חדשה
-router.post("/", authMiddleware, orderController.createOrder);
+// ✅ יצירת הזמנה
+router.post("/create", authMiddleware, orderController.createOrder);
 
-// קבלת ההזמנות של המשתמש
+// ✅ הזמנות שלי
 router.get("/my-orders", authMiddleware, orderController.getUserOrders);
 
-// עמוד תשלום להזמנה
-router.get("/payment/:orderId", authMiddleware, orderController.showPaymentPage); // ← תוקן כאן
+// ✅ עמוד תשלום
+router.get("/payment/:orderId", authMiddleware, orderController.showPaymentPage);
 
-// אישור תשלום
+// ✅ אישור תשלום
 router.post("/confirm", authMiddleware, orderController.confirmPayment);
 
-// עמוד checkout (לפי הסשן)
+// ✅ הצגת עמוד checkout (אופציונלי, רק תצוגה)
 router.get("/checkout", authMiddleware, cartController.checkoutPage);
 
 module.exports = router;

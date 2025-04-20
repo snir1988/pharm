@@ -1,76 +1,94 @@
-<%- include('../partials/header') %> <!-- ✅ כולל את הקובץ header – מוסיף תגיות <head> וקישורי CSS קבועים -->
-  <%- include('../partials/navbar') %> <!-- ✅ כולל את תפריט הניווט העליון של האתר -->
-  
-  <!-- ✅ קישורים לקבצי עיצוב -->
-  <link rel="stylesheet" href="/styles/payment.css" /> <!-- עיצוב ייחודי לעמוד התשלום -->
-  <link rel="stylesheet" href="/styles/global.css" /> <!-- עיצוב כללי לאתר -->
-  
-  <!-- ✅ עטיפת כל עמוד התשלום -->
-  <div class="payment-container">
-    <h1>🧾 תשלום על ההזמנה</h1> <!-- ✅ כותרת עמוד בולטת -->
-  
-    <!-- ✅ טופס התשלום (נשלח ל־/order/confirm ב־POST) -->
-    <form action="/order/confirm" method="POST" class="payment-form">
-      
-      <!-- ✅ שדה חבוי שמעביר את מזהה ההזמנה מה־URL -->
-      <input type="hidden" name="orderId" value="<%= orderId %>" />
-  
-      <!-- ✅ שדה להזנת שם בעל הכרטיס -->
-      <div class="form-group">
-        <label for="cardName">שם בעל הכרטיס:</label>
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<!-- קישורי CSS לעיצוב כללי ולעמוד התשלום -->
+<link rel="stylesheet" href="/styles/global.css">
+<link rel="stylesheet" href="/styles/payment.css">
+
+<!-- קונטיינר ראשי לעמוד התשלום -->
+<div class="payment-container">
+
+  <!-- כותרת עמוד -->
+  <h1>🧾 תשלום על ההזמנה</h1>
+
+  <!-- טופס תשלום -->
+  <form action="/order/confirm" method="POST" class="payment-form">
+
+    <!-- שדה חבוי עם מזהה ההזמנה -->
+    <input type="hidden" name="orderId" value="<%= orderId %>" />
+
+    <!-- שדה שם בעל הכרטיס -->
+    <div class="form-group">
+      <label for="cardName">שם בעל הכרטיס:</label>
+      <input
+        type="text"
+        id="cardName"
+        name="cardName"
+        placeholder="לדוג': ישראל ישראלי"
+        required
+      />
+    </div>
+
+    <!-- שדה מספר כרטיס עם עיצוב תוך כדי הקלדה -->
+    <div class="form-group">
+      <label for="cardNumber">מספר כרטיס:</label>
+      <input
+        type="text"
+        id="cardNumber"
+        name="cardNumber"
+        placeholder="1234 5678 9012 3456"
+        maxlength="19"
+        required
+        oninput="formatCardNumber(this)"
+      />
+    </div>
+
+    <!-- שורת שדות: תוקף ו־CVV -->
+    <div class="form-row">
+      <!-- שדה תוקף -->
+      <div class="form-group half">
+        <label for="expiry">תוקף:</label>
         <input
           type="text"
-          id="cardName"
-          name="cardName"
+          id="expiry"
+          name="expiry"
+          placeholder="MM/YY"
           required
-          placeholder="לדוג': ישראל ישראלי"
         />
       </div>
-  
-      <!-- ✅ שדה להזנת מספר כרטיס אשראי -->
-      <div class="form-group">
-        <label for="cardNumber">מספר כרטיס:</label>
+
+      <!-- שדה CVV -->
+      <div class="form-group half">
+        <label for="cvv">CVV:</label>
         <input
           type="text"
-          id="cardNumber"
-          name="cardNumber"
+          id="cvv"
+          name="cvv"
+          placeholder="123"
+          pattern="\d{3}"
           required
-          pattern="\d{16}" <!-- תבנית לבדיקת 16 ספרות בלבד -->
-          placeholder="1234 5678 9012 3456"
         />
       </div>
-  
-      <!-- ✅ שורה שמכילה שני שדות: תוקף ו־CVV -->
-      <div class="form-row">
-        <div class="form-group half">
-          <label for="expiry">תוקף:</label>
-          <input
-            type="text"
-            id="expiry"
-            name="expiry"
-            required
-            placeholder="MM/YY"
-          />
-        </div>
-  
-        <div class="form-group half">
-          <label for="cvv">CVV:</label>
-          <input
-            type="text"
-            id="cvv"
-            name="cvv"
-            required
-            pattern="\d{3}" <!-- תבנית לבדיקת 3 ספרות בלבד -->
-            placeholder="123"
-          />
-        </div>
-      </div>
-  
-      <!-- ✅ כפתור שליחה לעיבוד התשלום -->
-      <button type="submit" class="btn-pay">💳 שלם עכשיו</button>
-    </form>
-  </div>
-  
-  <!-- ✅ פוטר משותף – כולל סיום ה־HTML -->
-  <%- include('../partials/footer') %>
-  
+    </div>
+
+    <!-- כפתור שליחה -->
+    <button type="submit" class="btn-pay">💳 שלם עכשיו</button>
+
+  </form>
+</div>
+
+<!-- סקריפט לעיצוב מספר כרטיס תוך כדי הקלדה -->
+<script>
+  function formatCardNumber(input) {
+    // מסיר כל תו שהוא לא ספרה
+    const raw = input.value.replace(/\D/g, '');
+
+    // מחלק כל 4 ספרות עם רווחים ביניהם
+    const formatted = raw.match(/.{1,4}/g)?.join(' ') ?? '';
+
+    // מחזיר את הערך המעוצב לשדה
+    input.value = formatted;
+  }
+</script>
+
+<%- include('../partials/footer') %>

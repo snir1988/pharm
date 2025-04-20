@@ -1,57 +1,90 @@
 .payment-container {
-    max-width: 500px; /* רוחב מקסימלי */
-    margin: 40px auto; /* ריווח מעל ומתחת ומרכז בעמוד */
-    padding: 20px; /* ריווח פנימי */
-    border-radius: 10px; /* פינות מעוגלות */
-    background-color: #f9f9f9; /* רקע בהיר */
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* צל עדין */
-    direction: rtl; /* יישור לימין (עברית) */
-  }
-  
-  .payment-container h1 {
-    text-align: center; /* יישור טקסט למרכז */
-    margin-bottom: 25px; /* ריווח מתחת לכותרת */
-    color: #333; /* צבע טקסט כהה */
-  }
-  
-  .payment-form .form-group {
-    margin-bottom: 15px; /* ריווח בין קבוצות טופס */
-  }
-  
-  .payment-form label {
-    display: block; /* תווית בשורה נפרדת */
-    margin-bottom: 5px; /* ריווח מתחת לתווית */
-    font-weight: bold; /* טקסט מודגש */
-  }
-  
-  .payment-form input {
-    width: 100%; /* רוחב מלא */
-    padding: 8px; /* ריווח פנימי */
-    border: 1px solid #ccc; /* גבול אפור בהיר */
-    border-radius: 5px; /* פינות מעוגלות */
-  }
-  
-  .form-row {
-    display: flex; /* פריסה בשורה */
-    gap: 10px; /* ריווח בין השדות */
-  }
-  
-  .form-row .half {
-    flex: 1; /* כל שדה יתפוס חצי מרוחב השורה */
-  }
-  
-  .btn-pay {
-    background-color: #28a745; /* ירוק */
-    color: white; /* טקסט לבן */
-    font-size: 18px; /* גודל טקסט */
-    padding: 10px; /* ריווח פנימי */
-    width: 100%; /* רוחב מלא */
-    border: none; /* בלי גבול */
-    border-radius: 5px; /* פינות מעוגלות */
-    cursor: pointer; /* סמן של יד בלחיצה */
-  }
-  
-  .btn-pay:hover {
-    background-color: #218838; /* ירוק כהה יותר כשמרחפים */
-  }
-  
+  max-width: 500px; /* ✅ מגביל את רוחב הקונטיינר ל־500px */
+  margin: 40px auto; /* ✅ ריווח עליון ותחתון + ממרכז אופקית */
+  padding: 20px; /* ✅ ריווח פנימי */
+  border-radius: 10px; /* ✅ פינות מעוגלות */
+  background-color: #f9f9f9; /* ✅ רקע בהיר ונעים */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ✅ צל עדין מסביב */
+  direction: rtl; /* ✅ תצוגה מותאמת לימין (עברית) */
+}
+
+.payment-container h1 {
+  text-align: center; /* ✅ ממרכז את הכותרת */
+  margin-bottom: 25px; /* ✅ ריווח מתחת לכותרת */
+  color: #333; /* ✅ צבע טקסט כהה */
+  font-size: 1.8rem; /* ✅ גודל גופן גדול יותר */
+}
+
+/* ✅ עיצוב קבוצת שדה בטופס */
+.payment-form .form-group {
+  margin-bottom: 15px; /* ✅ ריווח בין קבוצות שדות */
+}
+
+/* ✅ עיצוב תגיות label בטופס */
+.payment-form label {
+  display: block; /* ✅ כל label בשורה נפרדת */
+  margin-bottom: 5px; /* ✅ ריווח בין התווית לשדה */
+  font-weight: bold; /* ✅ טקסט מודגש */
+}
+
+/* ✅ עיצוב כל שדות הקלט */
+.payment-form input {
+  width: 100%; /* ✅ שדה תופס את כל הרוחב */
+  padding: 8px; /* ✅ ריווח פנימי בשדה */
+  border: 1px solid #ccc; /* ✅ גבול אפור בהיר */
+  border-radius: 5px; /* ✅ פינות מעוגלות */
+}
+
+/* ✅ עיצוב שורת שני שדות (תוקף + CVV) */
+.form-row {
+  display: flex; /* ✅ פריסה בשורה אחת */
+  gap: 10px; /* ✅ רווח בין שני השדות */
+}
+
+/* ✅ כל חצי מתוך שורת השניים */
+.form-row .half {
+  flex: 1; /* ✅ כל חצי יתפוס חצי מהרוחב */
+}
+
+/* ✅ עיצוב כפתור "שלם עכשיו" וגם "חזור לחנות" */
+.btn-pay {
+  background-color: #28a745; /* ✅ ירוק בהיר – צבע עיקרי לכפתור */
+  color: white; /* ✅ טקסט לבן */
+  font-size: 18px; /* ✅ גודל טקסט */
+  padding: 10px; /* ✅ ריווח פנימי */
+  width: 100%; /* ✅ הכפתור תופס את כל הרוחב */
+  border: none; /* ✅ אין גבול */
+  border-radius: 5px; /* ✅ פינות מעוגלות */
+  cursor: pointer; /* ✅ סמן של יד */
+  text-align: center; /* ✅ מרכז את הטקסט */
+  display: inline-block; /* ✅ מאפשר פעולה של קישור או כפתור */
+  text-decoration: none; /* ✅ מסיר קו תחתון מקישורים */
+  transition: background-color 0.3s ease; /* ✅ אנימציית מעבר צבע חלקה */
+}
+
+/* ✅ שינוי צבע של הכפתור בריחוף */
+.btn-pay:hover {
+  background-color: #218838; /* ✅ ירוק כהה יותר */
+}
+
+/* ✅ כותרת הצלחה בדף confirmation.ejs */
+.success-title {
+  color: #28a745; /* ✅ ירוק – כמו הכפתור */
+  font-size: 2rem; /* ✅ גודל בולט */
+  text-align: center; /* ✅ ממרכז את הכותרת */
+  margin-bottom: 20px; /* ✅ ריווח מתחת לכותרת */
+}
+
+/* ✅ פסקאות תודה והודעות */
+.success-message {
+  text-align: center; /* ✅ יישור למרכז */
+  font-size: 1.2rem; /* ✅ גודל טקסט נוח */
+  margin-bottom: 15px; /* ✅ ריווח בין השורות */
+  color: #333; /* ✅ צבע טקסט כהה */
+}
+
+/* ✅ אזור עם כפתור המשך קניות */
+.success-actions {
+  text-align: center; /* ✅ ממרכז את הכפתור */
+  margin-top: 30px; /* ✅ ריווח מעל הכפתור */
+}

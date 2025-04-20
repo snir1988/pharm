@@ -78,7 +78,7 @@ exports.register = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email }); // בדיקה אם המשתמש כבר קיים
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.render('auth/register', {
         msg: "משתמש עם כתובת מייל זו כבר קיים.",
@@ -86,8 +86,8 @@ exports.register = async (req, res) => {
       });
     }
 
-    const salt = await bcrypt.genSalt(10); // יצירת סולט לסיסמה
-    const hashedPassword = await bcrypt.hash(password, salt); // הצפנת הסיסמה
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
       name,
@@ -95,11 +95,32 @@ exports.register = async (req, res) => {
       password: hashedPassword,
     });
 
-    await newUser.save(); // שמירת המשתמש במסד
+    await newUser.save();
 
-    res.render('auth/register-success', {
-      msg: "נרשמת בהצלחה! תועבר לעמוד המוצרים בעוד רגע..."
+    // ✅ יצירת JWT כמו בלוגין
+    const token = jwt.sign(
+      { _id: newUser._id, email: newUser.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // ✅ שמירת הטוקן ב-cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 1000
     });
+
+    // ✅ שמירת המשתמש ב-session
+    req.session.user = {
+      _id: newUser._id,
+      name: newUser.name,
+      email: newUser.email,
+      role: newUser.role || "user"
+    };
+
+    // ✅ הפניה לעמוד מוצרים במקום register-success
+    res.redirect('/product');
 
   } catch (err) {
     console.error("שגיאה ברישום:", err);
@@ -109,6 +130,7 @@ exports.register = async (req, res) => {
     });
   }
 };
+
 
 // ✅ התנתקות משתמש
 exports.logout = (req, res) => {

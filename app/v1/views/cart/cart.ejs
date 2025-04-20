@@ -1,37 +1,45 @@
-<%- include('../partials/header') %> <!-- ✅ כולל את קובץ ההדר (HTML פתיחה, title, link וכו') -->
-<link rel="stylesheet" href="/styles/global.css" /> <!-- ✅ עיצוב כללי של האתר -->
-<link rel="stylesheet" href="/styles/cart.css" /> <!-- ✅ עיצוב ייעודי לעמוד העגלה -->
+<%- include('../partials/header') %>
+<link rel="stylesheet" href="/styles/global.css" />
+<link rel="stylesheet" href="/styles/cart.css" />
 
-<section class="cart-page"> <!-- ✅ אזור ראשי לעמוד העגלה -->
-  <h2 class="cart-title">העגלה שלך</h2> <!-- ✅ כותרת ראשית של הדף -->
+<section class="cart-page">
+  <h2 class="cart-title">העגלה שלך</h2>
 
-  <% if (cart.length === 0) { %> <!-- ✅ בדיקה האם העגלה ריקה -->
-    <p class="empty-cart">העגלה ריקה</p> <!-- ✅ הודעה אם אין מוצרים בעגלה -->
+  <% if (cart.length === 0) { %>
+    <p class="empty-cart">העגלה ריקה</p>
   <% } else { %>
-    <div class="cart-grid"> <!-- ✅ גריד של כרטיסים לכל מוצר -->
-      <% cart.forEach(item => { %> <!-- ✅ מעבר על כל פריט בעגלה -->
-        <div class="cart-card"> <!-- ✅ כרטיס מוצר בודד -->
 
-          <!-- ✅ הצגת תמונת המוצר -->
-          <img
-            src="<%= item.picname ? '/images/' + item.picname : '/images/default.jpg' %>" <!-- אם אין תמונה -> תצוגת ברירת מחדל -->
-            alt="<%= item.pname %>" <!-- טקסט אלטרנטיבי -->
-          />
+    <div class="cart-container">
+      <div class="cart-grid">
+        <% cart.forEach(item => { %>
+          <div class="cart-card">
+            <img src="<%= item.picname ? ('/images/' + item.picname) : '/images/default.jpg' %>" alt="<%= item.pname %>"/>
+            <div class="cart-details">
+              <h3><%= item.pname %></h3>
+              <p>מחיר ליחידה: ₪<%= item.price %></p>
+              <label>כמות:</label>
+              <input type="number" class="quantity-input" data-product-id="<%= item.pid %>" value="<%= item.qty %>" min="1"/>
+              <p class="line-total">סה"כ: ₪<%= item.total %></p>
+              <form action="/cart/remove" method="POST">
+                <input type="hidden" name="pid" value="<%= item.pid %>" />
+                <button type="submit" class="remove-btn">הסר</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
 
-          <div class="cart-details"> <!-- ✅ פרטי המוצר -->
-            <h3><%= item.pname %></h3> <!-- ✅ שם המוצר -->
-            <p>מחיר ליחידה: ₪<%= item.price %></p> <!-- ✅ מחיר של יחידה אחת -->
+      <!-- ✅ כאן מבצעים יצירת הזמנה בפועל -->
+      <div class="cart-summary">
+        <p>סה"כ לתשלום: ₪<%= totalPrice %></p>
+        <form action="/order/create" method="POST">
+          <input type="hidden" name="cart" value="<%= encodeURIComponent(JSON.stringify(cart)) %>"/>
+          <input type="hidden" name="totalPrice" value="<%= totalPrice %>"/>
+          <button type="submit" class="checkout-btn">לתשלום</button>
+        </form>
+      </div>
+    </div>
+  <% } %>
+</section>
 
-            <!-- ✅ קלט לשינוי כמות -->
-            <label>כמות:</label>
-            <input
-              type="number"
-              class="quantity-input"
-              data-product-id="<%= item.pid %>" <!-- מזהה ייחודי למוצר -->
-              value="<%= item.qty %>" <!-- כמות נוכחית -->
-              min="1"
-            />
-
-            <p class="line-total">סה"כ: ₪<%= item.total %></p> <!-- ✅ סה"כ לשורה (מחיר כפול כמות) -->
-
-            <!-- ✅ כפתור להסרה מהעגלה -->
+<%- include('../partials/footer') %>

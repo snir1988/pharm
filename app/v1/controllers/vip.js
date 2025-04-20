@@ -56,7 +56,7 @@ exports.AddVIP = async (req, res) => {
     await transporter.sendMail(mailOptions);
 
     // ✅ הצגת עמוד הצלחה מותאם ל-VIP
-    res.render('vip-success', { fullname });
+    res.render('auth/vip-success', { fullname });
 
   } catch (err) {
     console.error('שגיאה בהרשמה ל־VIP:', err);

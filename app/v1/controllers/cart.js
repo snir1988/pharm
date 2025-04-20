@@ -20,34 +20,37 @@ exports.addToCart = (req, res) => {
 };
 
 // ✅ פונקציה להצגת עגלת הקניות
+// ✅ פונקציה להצגת עגלת הקניות
 exports.getCart = async (req, res) => {
-    const cart = req.session.cart || []; // שליפת עגלה קיימת או ריקה
+    const cart = req.session.cart || []; // שליפת עגלה קיימת או יצירת עגלה ריקה
 
-    // יצירת עגלה עם פרטים מלאים מהמוצרים במסד
+    // ✅ שליפה מהמסד של כל המוצרים שמופיעים בעגלה לפי ה־pid
     const detailedCart = await Promise.all(cart.map(async item => {
-        const product = await Product.findOne({ pid: item.pid }); // חיפוש מוצר לפי pid
+        const product = await Product.findOne({ pid: item.pid }); // שליפת מוצר מהמסד
 
         if (!product) {
-            console.log("🚨 לא נמצא מוצר עם pid:", item.pid); // לוג במקרה שהמוצר לא קיים
+            console.log("🚨 לא נמצא מוצר עם pid:", item.pid); // הודעת שגיאה אם מוצר לא קיים במסד
         }
 
         return {
-            pid: item.pid,
-            pname: product.pname,
-            price: product.price,
-            qty: item.qty,
-            picname: product.picname,
-            total: product.price * item.qty // סכום כולל למוצר
+            pid: item.pid, // מזהה מוצר
+            pname: product.pname, // שם המוצר
+            price: product.price, // מחיר ליחידה
+            qty: item.qty, // כמות בעגלה
+            picname: product.picname, // שם קובץ התמונה
+            total: product.price * item.qty // חישוב סכום כולל למוצר (מחיר * כמות)
         };
     }));
 
-    const totalAmount = detailedCart.reduce((sum, item) => sum + item.total, 0); // סכום כולל של העגלה
+    const totalPrice = detailedCart.reduce((sum, item) => sum + item.total, 0); // חישוב סך הכול של כל המוצרים בעגלה
 
+    // ✅ שליחה של העגלה והסכום לתבנית cart.ejs
     res.render('cart/cart', {
-        cart: detailedCart, // שולחים את עגלת הקניות המלאה
-        totalAmount         // כולל הסכום לתשלום
+        cart: detailedCart, // עגלה עם פרטי המוצרים
+        totalPrice          // סכום כולל לכל המוצרים – נשלח בשם תואם לקובץ EJS
     });
 };
+
 
 // ✅ פונקציה לעדכון כמות של מוצר בעגלה
 exports.updateCartQuantity = (req, res) => {
